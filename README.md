@@ -4,7 +4,7 @@ This is a WhatsApp bot built using the Baileys library for group management, inc
 
 <div align="center"> 
   <a href="https://git.io/typing-svg"> 
-    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=Neurotech-Bot;Multi+Device+Whatsapp+Bot;Coded+By+Allamano" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=Neurotech-MD;Multi+Device+Whatsapp+Bot;Coded+By+Allamano" alt="Typing SVG" />
   </a> 
 </div> 
 
@@ -22,14 +22,6 @@ This is a WhatsApp bot built using the Baileys library for group management, inc
 </div>
 
 ---
-<div>
-  <a href="https://www.thordata.com/products/residential-proxies?ls=YouTube&lk=Neurotech bot" target="_blank">
-    <img src="assets/thor.png" alt="ThorData Proxies" width="100%" />
-  </a>
-</div>
-
-<br>
-
 
 ## 🚀 Steps to Deploy Bot
 
