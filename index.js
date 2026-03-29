@@ -283,7 +283,7 @@ async function startXeonBotInc() {
             console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'KNIGHT BOT'} ]`)}\n\n`))
             console.log(chalk.cyan(`< ================================================== >`))
             console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: Neurotech Official`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: Neurotech official`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: Neurotechofficial7`))
             console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner}`))
             console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: ALLAMANO`))
             console.log(chalk.green(`${global.themeemoji || '•'} 🤖 Bot Connected Successfully! ✅`))
