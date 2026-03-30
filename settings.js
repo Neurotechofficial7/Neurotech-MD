@@ -1,7 +1,7 @@
 const settings = {
   packname: 'Neurotech Official',
   author: '‎',
-  botName: "Neurotech Official",
+  botName: "『 𝗡𝗘𝗨𝗥𝗢𝗧𝗘𝗖𝗛 𝗢𝗙𝗙𝗜𝗖𝗜𝗔𝗟 』",
   botOwner: 'Allamano', // Your name
   ownerNumber: '254785760508', //Set your number here without + symbol, just add country code & number without any space
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
