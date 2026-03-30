@@ -19,26 +19,26 @@ async function helpCommand(sock, chatId, message) {
 *Available Commands:*
 
 ╔═══════════════════╗
-🌐 *General Commands*:
-║ ➤ .menu
-║ ➤ .ping
-║ ➤ .alive
-║ ➤ .tts 
-║ ➤ .owner
-║ ➤ .joke
-║ ➤ .quote
-║ ➤ .fact
-║ ➤ .weather 
-║ ➤ .news
-║ ➤ .attp 
-║ ➤ .lyrics 
-║ ➤ .groupinfo
-║ ➤ .admins 
-║ ➤ .vv
-║ ➤ .translate 
-║ ➤ .screenshot 
-║ ➤ .jid
-║ ➤ .url
+🌐 *❖𝗚𝗘𝗡𝗘𝗥𝗔𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+║ ✦ .menu
+║ ✦.ping
+║ ✦.alive
+║ ✦.tts 
+║ ✦.owner
+║ ✦.joke
+║ ✦.quote
+║ ✦.fact
+║ ✦.weather 
+║ ✦.news
+║ ✦.attp 
+║ ✦.lyrics 
+║ ✦.groupinfo
+║ ✦.admins 
+║ ✦.vv
+║ ✦.translate 
+║ ✦.screenshot 
+║ ✦.jid
+║ ✦ .url
 ╚═══════════════════╝ 
 
 ╔═══════════════════╗
