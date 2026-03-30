@@ -19,7 +19,7 @@ async function helpCommand(sock, chatId, message) {
 *𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦:*
 
 ╔═══════════════════╗
-  *❖𝗚𝗘𝗡𝗘𝗥𝗔𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗚𝗘𝗡𝗘𝗥𝗔𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦ .menu
 ║ ✦.ping
 ║ ✦.alive
@@ -42,7 +42,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝ 
 
 ╔═══════════════════╗
-  *𝗔𝗗𝗠𝗜𝗡 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗔𝗗𝗠𝗜𝗡 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.ban 
 ║ ✦.promote 
 ║ ✦.demote 
@@ -70,7 +70,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗢𝗪𝗡𝗘𝗥 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗢𝗪𝗡𝗘𝗥 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.mode 
 ║ ✦.clearsession
 ║ ✦.antidelete
@@ -91,7 +91,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗜𝗠𝗔𝗚𝗘 & 𝗦𝗧𝗜𝗖𝗞𝗘𝗥*:
+   *𝗜𝗠𝗔𝗚𝗘 & 𝗦𝗧𝗜𝗖𝗞𝗘𝗥*:
 ║ ✦.blur 
 ║ ✦.simage 
 ║ ✦.sticker 
@@ -107,7 +107,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝  
 
 ╔═══════════════════╗
-  *𝗣𝗜𝗘𝗦*:
+   *𝗣𝗜𝗘𝗦*:
 ║ ✦.pies 
 ║ ✦.china 
 ║ ✦.indonesia 
@@ -117,7 +117,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗚𝗔𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗚𝗔𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.tictactoe 
 ║ ✦.hangman
 ║ ✦.guess 
@@ -128,7 +128,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗔𝗜 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗔𝗜 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.gpt 
 ║ ✦.gemini 
 ║ ✦.imagine 
@@ -137,7 +137,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗙𝗨𝗡 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗙𝗨𝗡 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.compliment 
 ║ ✦.insult 
 ║ ✦.flirt 
@@ -152,7 +152,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗧𝗘𝗫𝗧 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗧𝗘𝗫𝗧 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.metallic 
 ║ ✦.ice 
 ║ ✦.snow 
@@ -174,7 +174,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗𝗘𝗥 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.play 
 ║ ✦.song 
 ║ ✦.spotify 
@@ -186,7 +186,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗠𝗜𝗦𝗖 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗠𝗜𝗦𝗖 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.heart
 ║ ✦.horny
 ║ ✦.circle
@@ -206,7 +206,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗔𝗡𝗜𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+   *𝗔𝗡𝗜𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.nom 
 ║ ✦.poke 
 ║ ✦.cry 
@@ -218,7 +218,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-  *𝗚𝗜𝗧𝗛𝗨𝗕 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦:*
+   *𝗚𝗜𝗧𝗛𝗨𝗕 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦:*
 ║ ✦.git
 ║ ✦.github
 ║ ✦.sc
