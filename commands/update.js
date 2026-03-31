@@ -215,7 +215,7 @@ async function updateCommand(sock, chatId, message, zipOverride) {
         }
         try {
             const v = require('../settings').version || '';
-            await sock.sendMessage(chatId, { text: `✅ Update done. Restarting…` }, { quoted: message });
+            await sock.sendMessage(chatId, { text: `✅ Update done. Restarting…Wait for a few minutes as everythings syncs to the latest github repo` }, { quoted: message });
         } catch {
             await sock.sendMessage(chatId, { text: '✅ Restared Successfully\n Type .ping to check latest version.' }, { quoted: message });
         }
