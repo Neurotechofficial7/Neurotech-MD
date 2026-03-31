@@ -264,7 +264,7 @@ async function startXeonBotInc() {
             try {
                 const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
                 await XeonBotInc.sendMessage(botNumber, {
-                    text: `🤖 Bot Connected Successfully!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready!\n\n✅Make sure to join below channel`,
+                    text: `🤖 SYSTEM ONLINE — CONNECTION ESTABLISHED!\n\n⏰ Time: ${new Date().toLocaleString()}\n✅ Status: Online and Ready for use!\n\n✅Make sure to join below channel for daily giveaways,News updates from admin and free deployment `,
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
@@ -280,12 +280,12 @@ async function startXeonBotInc() {
             }
 
             await delay(1999)
-            console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'KNIGHT BOT'} ]`)}\n\n`))
+            console.log(chalk.yellow(`\n\n                  ${chalk.bold.blue(`[ ${global.botname || 'NEUROTECH BOT'} ]`)}\n\n`))
             console.log(chalk.cyan(`< ================================================== >`))
-            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YT CHANNEL: Neurotech Official`))
+            console.log(chalk.magenta(`\n${global.themeemoji || '•'} YOUTUBE CHANNEL: Neurotech Official`))
             console.log(chalk.magenta(`${global.themeemoji || '•'} GITHUB: Neurotechofficial7`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} WA NUMBER: ${owner}`))
-            console.log(chalk.magenta(`${global.themeemoji || '•'} CREDIT: ALLAMANO`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} WHATSAPP NUMBER: ${owner}`))
+            console.log(chalk.magenta(`${global.themeemoji || '•'} OWNER: ALLAMANO`))
             console.log(chalk.green(`${global.themeemoji || '•'} 🤖 Bot Connected Successfully! ✅`))
             console.log(chalk.blue(`Bot Version: ${settings.version}`))
         }
