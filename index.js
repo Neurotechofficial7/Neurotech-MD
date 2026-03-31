@@ -264,7 +264,7 @@ async function startXeonBotInc() {
             try {
                 const botNumber = XeonBotInc.user.id.split(':')[0] + '@s.whatsapp.net';
                 await XeonBotInc.sendMessage(botNumber, {
-                    text: `🤖 SYSTEM ONLINE — CONNECTION ESTABLISHED!\n\n⏰ Time: ${new Date().toLocaleString()}\n\n✅ BOT STATUS: FULLY ACTIVE! \n\n💡 Have ideas or found a bug? Message the owner to report errors or suggest what we should add in the next update! \n\n✅Make sure to join below channel for daily giveaways,Bot updates from admin and free bot deployment`,
+                    text: `🤖 SYSTEM ONLINE — CONNECTION ESTABLISHED!\n\n⏰ Time: ${new Date().toLocaleString()}\n\n✅ BOT STATUS: FULLY ACTIVE! \n\n💡 Have ideas or found a bug? Message the owner to report errors or suggest what we should add in the next update! DM 254785760507\n\n✅Make sure to join below channel for daily giveaways,Bot updates and free bot deployment from adim`,
                     contextInfo: {
                         forwardingScore: 1,
                         isForwarded: true,
