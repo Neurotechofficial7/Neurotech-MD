@@ -69,6 +69,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.setgname 
 ║ ✦.setgpp 
 ║ ✦.approveall
+║ ✦.rejectall 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
