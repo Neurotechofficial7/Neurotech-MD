@@ -104,6 +104,7 @@ const { handlePromotionEvent } = require('./commands/promote');
 const { handleDemotionEvent } = require('./commands/demote');
 const viewOnceCommand = require('./commands/viewonce');
 const clearSessionCommand = require('./commands/clearsession');
+const approveAllCommand = require('./commands/approveall');
 const { autoStatusCommand, handleStatusUpdate } = require('./commands/autostatus');
 const { simpCommand } = require('./commands/simp');
 const { stupidCommand } = require('./commands/stupid');
@@ -426,6 +427,9 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 await stickerCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
+                case userMessage === '.approveall':
+    await approveAllCommand(sock, chatId, message);
+    break;
             case userMessage.startsWith('.warnings'):
                 const mentionedJidListWarnings = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warningsCommand(sock, chatId, mentionedJidListWarnings);
