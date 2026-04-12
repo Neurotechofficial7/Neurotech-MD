@@ -20,7 +20,7 @@ async function helpCommand(sock, chatId, message) {
 
 ╔═══════════════════╗
    *𝗚𝗘𝗡𝗘𝗥𝗔𝗟 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
-║ ✦ .menu
+║ ✦.menu
 ║ ✦.ping
 ║ ✦.alive
 ║ ✦.tts 
@@ -39,6 +39,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.screenshot 
 ║ ✦.jid
 ║ ✦.url
+║ ✦.setprefix 
 ╚═══════════════════╝ 
 
 ╔═══════════════════╗
