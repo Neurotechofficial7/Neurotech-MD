@@ -6,16 +6,18 @@ async function approveAllCommand(sock, chatId, message) {
             }, { quoted: message });
         }
 
-        // Get group metadata
         const groupMetadata = await sock.groupMetadata(chatId);
 
-        // ✅ FIXED BOT ADMIN CHECK (reliable)
-        const botId = sock.user.id;
-        const botParticipant = groupMetadata.participants.find(
-            p => p.id === botId
+        // ✅ FIX: normalize bot id properly
+        const botId = sock.user.id.split(':')[0] + '@s.whatsapp.net';
+
+        const botParticipant = groupMetadata.participants.find(p =>
+            p.id === botId || p.id.startsWith(sock.user.id.split('@')[0])
         );
 
-        if (!botParticipant?.admin) {
+        const isBotAdmin = botParticipant?.admin;
+
+        if (!isBotAdmin) {
             return await sock.sendMessage(chatId, {
                 text: "❌ I need to be an admin to approve members."
             }, { quoted: message });
@@ -27,7 +29,7 @@ async function approveAllCommand(sock, chatId, message) {
             requests = await sock.groupRequestParticipantsList(chatId);
         } catch (err) {
             return await sock.sendMessage(chatId, {
-                text: "❌ This group does not have join requests enabled or feature not supported."
+                text: "❌ This group does not support join requests."
             }, { quoted: message });
         }
 
@@ -37,10 +39,8 @@ async function approveAllCommand(sock, chatId, message) {
             }, { quoted: message });
         }
 
-        // Extract JIDs
         const usersToApprove = requests.map(r => r.jid);
 
-        // Approve all
         await sock.groupRequestParticipantsUpdate(
             chatId,
             usersToApprove,
@@ -52,7 +52,7 @@ async function approveAllCommand(sock, chatId, message) {
 `✅ *ALL MEMBERS APPROVED*
 
 👥 Approved: ${usersToApprove.length}
-📢 All join requests have been accepted successfully.`
+📢 Requests cleared successfully.`
         }, { quoted: message });
 
     } catch (err) {
