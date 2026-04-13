@@ -96,6 +96,7 @@ const { flirtCommand } = require('./commands/flirt');
 const characterCommand = require('./commands/character');
 const wastedCommand = require('./commands/wasted');
 const shipCommand = require('./commands/ship');
+const addCommand = require('./commands/add');
 const groupInfoCommand = require('./commands/groupinfo');
 const resetlinkCommand = require('./commands/resetlink');
 const restartCommand = require('./commands/restart');
@@ -459,6 +460,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.delete') || userMessage.startsWith('.del'):
                 await deleteCommand(sock, chatId, message, senderId);
                 break;
+                case userMessage.startsWith('.add'):
+    const args = userMessage.split(' ').slice(1);
+    await addCommand(sock, chatId, senderId, message, args);
+    break;
             case userMessage.startsWith('.attp'):
                 await attpCommand(sock, chatId, message);
                 break;
