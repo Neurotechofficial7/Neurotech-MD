@@ -127,6 +127,7 @@ const aiCommand = require('./commands/ai');
 const urlCommand = require('./commands/url');
 const { handleTranslateCommand } = require('./commands/translate');
 const { handleSsCommand } = require('./commands/ss');
+const { antimentionCommand, handleAntiMention } = require('./commands/antimention');
 const { addCommandReaction, handleAreactCommand } = require('./lib/reactions');
 const { goodnightCommand } = require('./commands/goodnight');
 const { shayariCommand } = require('./commands/shayari');
@@ -436,6 +437,11 @@ async function handleMessages(sock, messageUpdate, printLog) {
             case userMessage.startsWith('.warnings'):
                 const mentionedJidListWarnings = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warningsCommand(sock, chatId, mentionedJidListWarnings);
+                case userMessage.startsWith('.antimention'):
+    const args = userMessage.split(' ').slice(1);
+    const adminStatus = await isAdmin(sock, chatId, senderId);
+    await antimentionCommand(sock, chatId, message, senderId, args, adminStatus.isSenderAdmin);
+    break;
                 break;
             case userMessage === '.rejectall':
     await rejectAllCommand(sock, chatId, message);
