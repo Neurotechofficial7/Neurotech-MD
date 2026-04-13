@@ -98,6 +98,7 @@ const wastedCommand = require('./commands/wasted');
 const shipCommand = require('./commands/ship');
 const groupInfoCommand = require('./commands/groupinfo');
 const resetlinkCommand = require('./commands/resetlink');
+const restartCommand = require('./commands/restart');
 const staffCommand = require('./commands/staff');
 const unbanCommand = require('./commands/unban');
 const emojimixCommand = require('./commands/emojimix');
@@ -442,6 +443,15 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const mentionedJidListWarn = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warnCommand(sock, chatId, senderId, mentionedJidListWarn, message);
                 break;
+                case userMessage === '.restart':
+    if (!message.key.fromMe && !senderIsOwnerOrSudo) {
+        await sock.sendMessage(chatId, {
+            text: "❌ Only owner can restart the bot!"
+        }, { quoted: message });
+        break;
+    }
+    await restartCommand(sock, chatId, message);
+    break;
             case userMessage.startsWith('.tts'):
                 const text = userMessage.slice(4).trim();
                 await ttsCommand(sock, chatId, text, message);
