@@ -309,6 +309,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
             if (isGroup) {
                 // Always run moderation features (antitag) regardless of mode
                 await handleTagDetection(sock, chatId, message, senderId);
+                await handleAntiMention(sock, chatId, message, senderId);
                 await handleMentionDetection(sock, chatId, message);
 
                 // Only run chatbot in public mode or for owner/sudo
