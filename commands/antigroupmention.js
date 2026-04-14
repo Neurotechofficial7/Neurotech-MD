@@ -95,7 +95,7 @@ const handleAntiGroupMention = async (sock, chatId, message, senderId) => {
         const hasFakeMention =
             text.toLowerCase().includes('@group') ||
             text.toLowerCase().includes('@everyone') ||
-            text.toLowerCase().includes('@here');
+            text.toLowerCase().includes('@all');
 
         const hasContextMention =
             context?.mentionedJid?.some(jid => jid.endsWith('@g.us')) ||
