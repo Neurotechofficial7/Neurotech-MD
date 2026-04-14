@@ -74,6 +74,7 @@ const simageCommand = require('./commands/simage');
 const attpCommand = require('./commands/attp');
 const { autoStatusDownloadCommand, handleAutoStatusDownload } = require('./commands/autostatusdownload');
 const deepseekCommand = require('./commands/deepseek');
+const customAICommand = require('./commands/customai');
 const { startHangman, guessLetter } = require('./commands/hangman');
 const { startTrivia, answerTrivia } = require('./commands/trivia');
 const { complimentCommand } = require('./commands/compliment');
@@ -611,6 +612,9 @@ await handleAutoStatusDownload(sock, message);
                 case userMessage.startsWith('.deepseek'):
     const dsArgs = userMessage.split(' ').slice(1);
     await deepseekCommand(sock, chatId, message, dsArgs);
+    break;
+                case userMessage.startsWith('.customai'):
+    await customAICommand(sock, chatId, message);
     break;
             case userMessage.startsWith('.tag'):
                 const messageText = rawText.slice(4).trim();  // use rawText here, not userMessage
