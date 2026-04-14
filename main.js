@@ -96,6 +96,7 @@ const antibadwordCommand = require('./commands/antibadword');
 const { handleChatbotCommand, handleChatbotResponse } = require('./commands/chatbot');
 const takeCommand = require('./commands/take');
 const { flirtCommand } = require('./commands/flirt');
+const letMeGPTCommand = require('./commands/letmegpt');
 const characterCommand = require('./commands/character');
 const wastedCommand = require('./commands/wasted');
 const shipCommand = require('./commands/ship');
@@ -612,6 +613,9 @@ await handleAutoStatusDownload(sock, message);
                 case userMessage.startsWith('.deepseek'):
     const dsArgs = userMessage.split(' ').slice(1);
     await deepseekCommand(sock, chatId, message, dsArgs);
+    break;
+                case userMessage.startsWith('.letmegpt'):
+    await letMeGPTCommand(sock, chatId, message);
     break;
                 case userMessage.startsWith('.customai'):
     await customAICommand(sock, chatId, message);
