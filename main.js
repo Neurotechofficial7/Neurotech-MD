@@ -74,6 +74,7 @@ const simageCommand = require('./commands/simage');
 const attpCommand = require('./commands/attp');
 const { autoStatusDownloadCommand, handleAutoStatusDownload } = require('./commands/autostatusdownload');
 const deepseekCommand = require('./commands/deepseek');
+const unlimitedAICommand = require('./commands/unlimitedai');
 const customAICommand = require('./commands/customai');
 const { startHangman, guessLetter } = require('./commands/hangman');
 const { startTrivia, answerTrivia } = require('./commands/trivia');
@@ -491,6 +492,9 @@ await handleAutoStatusDownload(sock, message);
                 }
                 await unbanCommand(sock, chatId, message);
                 break;
+                case userMessage.startsWith('.unlimitedai'):
+    await unlimitedAICommand(sock, chatId, message);
+    break;
             case userMessage === '.help' || userMessage === '.menu' || userMessage === '.bot' || userMessage === '.list':
                 await helpCommand(sock, chatId, message, global.channelLink);
                 commandExecuted = true;
