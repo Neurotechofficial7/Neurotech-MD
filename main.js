@@ -87,6 +87,7 @@ const { clearCommand } = require('./commands/clear');
 const deepImgCommand = require('./commands/deepimg');
 const pingCommand = require('./commands/ping');
 const aliveCommand = require('./commands/alive');
+const veniceAICommand = require('./commands/veniceai');
 const rejectAllCommand = require('./commands/rejectall');
 const blurCommand = require('./commands/img-blur');
 const { welcomeCommand, handleJoinEvent } = require('./commands/welcome');
@@ -448,6 +449,9 @@ await handleAutoStatusDownload(sock, message);
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await kickCommand(sock, chatId, senderId, mentionedJidListKick, message);
                 break;
+            case userMessage.startsWith('.venice'):
+    await veniceAICommand(sock, chatId, message);
+    break;
             case userMessage.startsWith('.mute'):
                 {
                     const parts = userMessage.trim().split(/\s+/);
