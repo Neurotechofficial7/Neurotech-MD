@@ -379,6 +379,51 @@ await handleAutoStatusDownload(sock, message);
         let commandExecuted = false;
 
         switch (true) {
+                case userMessage.startsWith('.gpt4o'): {
+    const q = userMessage.split(' ').slice(1).join(' ');
+
+    if (!q) {
+        await sock.sendMessage(chatId, {
+            text: "❗ Example: .gpt4o What is AI?",
+            ...channelInfo
+        }, { quoted: message });
+        break;
+    }
+
+    try {
+        const axios = require("axios");
+
+        let url = `https://api.giftedtech.co.ke/api/ai/gpt4o?apikey=gifted&q=${encodeURIComponent(q)}`;
+
+        let res = await axios.get(url);
+
+        let data = res.data;
+
+        let result = data?.result;
+
+        if (!result) {
+            await sock.sendMessage(chatId, {
+                text: "❌ AI failed to respond.",
+                ...channelInfo
+            }, { quoted: message });
+            break;
+        }
+
+        await sock.sendMessage(chatId, {
+            text: "🤖 GPT-4o:\n\n" + result,
+            ...channelInfo
+        }, { quoted: message });
+
+    } catch (err) {
+        console.log(err);
+        await sock.sendMessage(chatId, {
+            text: "⚠️ Error connecting GPT-4o API",
+            ...channelInfo
+        }, { quoted: message });
+    }
+
+    break;
+                }
                 case userMessage.startsWith('.autostatusdownload'):
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
