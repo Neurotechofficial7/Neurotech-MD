@@ -89,6 +89,7 @@ const { dareCommand } = require('./commands/dare');
 const { truthCommand } = require('./commands/truth');
 const { clearCommand } = require('./commands/clear');
 const deepImgCommand = require('./commands/deepimg');
+const thankYouCommand = require('./commands/thankyou');
 const pingCommand = require('./commands/ping');
 const aliveCommand = require('./commands/alive');
 const veniceAICommand = require('./commands/veniceai');
@@ -482,6 +483,10 @@ case userMessage === '.jokes':
                     }
                 }
                 break;
+                case userMessage === '.thankyou':
+case userMessage === '.thanks':
+    await thankYouCommand(sock, chatId, message);
+    break;
                 case userMessage === '.halloween':
 case userMessage === '.spooky':
     await halloweenCommand(sock, chatId, message);
