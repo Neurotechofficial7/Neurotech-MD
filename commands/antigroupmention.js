@@ -1,91 +1,138 @@
 const fs = require('fs');
 const path = require('path');
+const isAdmin = require('../lib/isAdmin');
 
 const filePath = path.join(__dirname, '../data/antigroupmention.json');
 
-// Load data
+// Load & Save
 const loadData = () => {
     if (!fs.existsSync(filePath)) return {};
     return JSON.parse(fs.readFileSync(filePath));
 };
 
-// Save data
 const saveData = (data) => {
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 };
 
-// COMMAND: .antigroupmention on/off
-const antigroupmentionCommand = async (sock, chatId, message, senderId, args, isAdmin) => {
+// ================= COMMAND =================
+const antigroupmentionCommand = async (sock, chatId, message, senderId, args, isSenderAdmin) => {
     if (!chatId.endsWith('@g.us')) {
-        return sock.sendMessage(chatId, { text: '❌ This command is for groups only.' });
+        return sock.sendMessage(chatId, { text: '❌ Group only command.' });
     }
 
-    if (!isAdmin) {
-        return sock.sendMessage(chatId, { text: '❌ Only admins can use this command.' });
+    if (!isSenderAdmin) {
+        return sock.sendMessage(chatId, { text: '❌ Only admins can use this.' });
     }
 
-    const option = args[0];
     const data = loadData();
+    const action = args[0]; // on/off
+    const mode = args[1];   // delete/warn/kick
 
-    if (option === 'on') {
-        data[chatId] = true;
+    if (action === 'on') {
+        if (!['delete', 'warn', 'kick'].includes(mode)) {
+            return sock.sendMessage(chatId, {
+                text: '⚠️ Choose mode: delete / warn / kick\nExample: .antigroupmention on delete'
+            });
+        }
+
+        data[chatId] = {
+            enabled: true,
+            mode: mode,
+            warnings: {}
+        };
+
         saveData(data);
-        return sock.sendMessage(chatId, { text: '✅ Anti-group mention enabled.' });
+
+        return sock.sendMessage(chatId, {
+            text: `✅ Anti-group mention ON\nMode: ${mode}`
+        });
     }
 
-    if (option === 'off') {
+    if (action === 'off') {
         delete data[chatId];
         saveData(data);
-        return sock.sendMessage(chatId, { text: '❌ Anti-group mention disabled.' });
+
+        return sock.sendMessage(chatId, {
+            text: '❌ Anti-group mention OFF'
+        });
     }
 
     return sock.sendMessage(chatId, {
-        text: 'Usage: .antigroupmention on/off'
+        text: 'Usage:\n.antigroupmention on delete\n.antigroupmention on warn\n.antigroupmention on kick\n.antigroupmention off'
     });
 };
 
-// DETECTION FUNCTION
+// ================= DETECTION =================
 const handleAntiGroupMention = async (sock, chatId, message, senderId) => {
     try {
         if (!chatId.endsWith('@g.us')) return;
 
         const data = loadData();
-        if (!data[chatId]) return;
+        if (!data[chatId]?.enabled) return;
 
-        const msg = message.message;
+        // 🔒 Ignore admins
+        const adminStatus = await isAdmin(sock, chatId, senderId);
+        if (adminStatus.isSenderAdmin) return;
 
-        let groupMentionDetected = false;
+        const context = message.message?.extendedTextMessage?.contextInfo;
 
-        // 🔥 CHECK 1: groupMentions (IMPORTANT)
-        const groupMentions = msg?.extendedTextMessage?.contextInfo?.groupMentions;
-        if (groupMentions && groupMentions.length > 0) {
-            groupMentionDetected = true;
-        }
+        const isGroupMention =
+            context?.groupMentions?.length > 0 ||
+            context?.mentionedJid?.includes(chatId);
 
-        // 🔥 CHECK 2: @everyone / @all text
-        const text =
-            msg?.conversation ||
-            msg?.extendedTextMessage?.text ||
-            '';
+        if (!isGroupMention) return;
 
-        if (text.toLowerCase().includes('@everyone') || text.toLowerCase().includes('@all')) {
-            groupMentionDetected = true;
-        }
+        const mode = data[chatId].mode;
 
-        if (!groupMentionDetected) return;
-
-        // 🚫 TAKE ACTION
-        await sock.sendMessage(chatId, {
-            text: `🚫 Group mentions are not allowed!`,
-            mentions: [senderId]
-        });
-
-        // 🔥 Optional: delete message (if bot admin)
+        // 🚫 DELETE MESSAGE
         try {
             await sock.sendMessage(chatId, {
                 delete: message.key
             });
-        } catch (e) {}
+        } catch {}
+
+        // ================= MODES =================
+
+        if (mode === 'delete') {
+            await sock.sendMessage(chatId, {
+                text: '🚫 Group mention is not allowed!',
+                mentions: [senderId]
+            });
+        }
+
+        if (mode === 'warn') {
+            const warnings = data[chatId].warnings;
+
+            warnings[senderId] = (warnings[senderId] || 0) + 1;
+
+            saveData(data);
+
+            await sock.sendMessage(chatId, {
+                text: `⚠️ Warning ${warnings[senderId]}/3\nStop mentioning the group!`,
+                mentions: [senderId]
+            });
+
+            // 👢 Auto kick after 3 warnings
+            if (warnings[senderId] >= 3) {
+                await sock.groupParticipantsUpdate(chatId, [senderId], 'remove');
+
+                await sock.sendMessage(chatId, {
+                    text: '🚫 User kicked for repeated group mentions!'
+                });
+
+                warnings[senderId] = 0;
+                saveData(data);
+            }
+        }
+
+        if (mode === 'kick') {
+            await sock.groupParticipantsUpdate(chatId, [senderId], 'remove');
+
+            await sock.sendMessage(chatId, {
+                text: '🚫 User removed for mentioning group!',
+                mentions: [senderId]
+            });
+        }
 
     } catch (err) {
         console.log('AntiGroupMention Error:', err);
