@@ -84,6 +84,7 @@ const { lyricsCommand } = require('./commands/lyrics');
 const { dareCommand } = require('./commands/dare');
 const { truthCommand } = require('./commands/truth');
 const { clearCommand } = require('./commands/clear');
+const deepImgCommand = require('./commands/deepimg');
 const pingCommand = require('./commands/ping');
 const aliveCommand = require('./commands/alive');
 const rejectAllCommand = require('./commands/rejectall');
@@ -468,6 +469,9 @@ await handleAutoStatusDownload(sock, message);
                 }
                 await banCommand(sock, chatId, message);
                 break;
+                case userMessage.startsWith('.deepimg'):
+    await deepImgCommand(sock, chatId, message);
+    break;
             case userMessage.startsWith('.unban'):
                 if (!isGroup) {
                     if (!message.key.fromMe && !senderIsSudo) {
