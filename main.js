@@ -71,6 +71,12 @@ const tagNotAdminCommand = require('./commands/tagnotadmin');
 const hideTagCommand = require('./commands/hidetag');
 const jokeCommand = require('./commands/joke');
 const quoteCommand = require('./commands/quote');
+const pickuplineCommand = require('./commands/pickupline');
+const girlfriendsDayCommand = require('./commands/girlfriendsday');
+const boyfriendsDayCommand = require('./commands/boyfriendsday');
+const newYearCommand = require('./commands/newyear');
+const christmasCommand = require('./commands/christmas');
+const heartbreakCommand = require('./commands/heartbreak');
 const factCommand = require('./commands/fact');
 const weatherCommand = require('./commands/weather');
 const newsCommand = require('./commands/news');
@@ -525,6 +531,24 @@ case userMessage === '.spooky':
                 break;
                 case userMessage.startsWith('.veo3'):
     await veo3Command(sock, chatId, message);
+    break;
+                case userMessage === '.pickupline':
+    await pickuplineCommand(sock, chatId, message);
+    break;
+                case userMessage === '.girlfriendsday':
+    await girlfriendsDayCommand(sock, chatId, message);
+    break;
+                case userMessage === '.boyfriendsday':
+    await boyfriendsDayCommand(sock, chatId, message);
+    break;
+                case userMessage === '.newyear':
+    await newYearCommand(sock, chatId, message);
+    break;
+                case userMessage === '.christmas':
+    await christmasCommand(sock, chatId, message);
+    break;
+                case userMessage === '.heartbreak':
+    await heartbreakCommand(sock, chatId, message);
     break;
                 case userMessage.startsWith('.deepimg'):
     await deepImgCommand(sock, chatId, message);
