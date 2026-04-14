@@ -72,7 +72,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.approveall
 ║ ✦.rejectall 
 ║ ✦.add
-║ ✦.antimention 
+║ ✦.antigroupmention 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
