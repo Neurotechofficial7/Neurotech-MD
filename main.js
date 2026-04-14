@@ -45,7 +45,7 @@ const helpCommand = require('./commands/help');
 const banCommand = require('./commands/ban');
 const { promoteCommand } = require('./commands/promote');
 const { demoteCommand } = require('./commands/demote');
-const muteCommand = require('./commands/mute');
+const closeCommand = require('./commands/close');
 const unmuteCommand = require('./commands/unmute');
 const stickerCommand = require('./commands/sticker');
 const isAdmin = require('./lib/isAdmin');
@@ -325,7 +325,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
         }
 
         // List of admin commands
-        const adminCommands = ['.mute', '.unmute', '.ban', '.unban', '.promote', '.demote', '.kick', '.tagall', '.tagnotadmin', '.hidetag', '.antilink', '.antitag', '.setgdesc', '.setgname', '.setgpp'];
+        const adminCommands = ['.close', '.unmute', '.ban', '.unban', '.promote', '.demote', '.kick', '.tagall', '.tagnotadmin', '.hidetag', '.antilink', '.antitag', '.setgdesc', '.setgname', '.setgpp'];
         const isAdminCommand = adminCommands.some(cmd => userMessage.startsWith(cmd));
 
         // List of owner commands
@@ -347,7 +347,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
             }
 
             if (
-                userMessage.startsWith('.mute') ||
+                userMessage.startsWith('.close') ||
                 userMessage === '.unmute' ||
                 userMessage.startsWith('.ban') ||
                 userMessage.startsWith('.unban') ||
@@ -391,15 +391,15 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await kickCommand(sock, chatId, senderId, mentionedJidListKick, message);
                 break;
-            case userMessage.startsWith('.mute'):
+            case userMessage.startsWith('.close'):
                 {
                     const parts = userMessage.trim().split(/\s+/);
-                    const muteArg = parts[1];
-                    const muteDuration = muteArg !== undefined ? parseInt(muteArg, 10) : undefined;
-                    if (muteArg !== undefined && (isNaN(muteDuration) || muteDuration <= 0)) {
-                        await sock.sendMessage(chatId, { text: 'Please provide a valid number of minutes or use .mute with no number to mute immediately.', ...channelInfo }, { quoted: message });
+                    const closeArg = parts[1];
+                    const closeDuration = closeArg !== undefined ? parseInt(closeArg, 10) : undefined;
+                    if (closeArg !== undefined && (isNaN(closeDuration) || closeDuration <= 0)) {
+                        await sock.sendMessage(chatId, { text: 'Please provide a valid number of minutes or use .close with no number to mute immediately.', ...channelInfo }, { quoted: message });
                     } else {
-                        await muteCommand(sock, chatId, senderId, message, muteDuration);
+                        await closeCommand(sock, chatId, senderId, message, muteDuration);
                     }
                 }
                 break;
