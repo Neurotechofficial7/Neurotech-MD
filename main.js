@@ -71,6 +71,7 @@ const weatherCommand = require('./commands/weather');
 const newsCommand = require('./commands/news');
 const kickCommand = require('./commands/kick');
 const simageCommand = require('./commands/simage');
+const jokesCommand = require('./commands/jokes');
 const attpCommand = require('./commands/attp');
 const { autoStatusDownloadCommand, handleAutoStatusDownload } = require('./commands/autostatusdownload');
 const deepseekCommand = require('./commands/deepseek');
@@ -450,6 +451,10 @@ await handleAutoStatusDownload(sock, message);
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await kickCommand(sock, chatId, senderId, mentionedJidListKick, message);
                 break;
+                case userMessage.startsWith('.joke'):
+case userMessage === '.jokes':
+    await jokesCommand(sock, chatId, message);
+    break;
             case userMessage.startsWith('.venice'):
     await veniceAICommand(sock, chatId, message);
     break;
