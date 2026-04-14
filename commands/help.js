@@ -150,6 +150,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.magicstudio
 ║ ✦.veo3 
 ║ ✦.veniceai
+║ ✦.unlimitedai
 ╚═══════════════════╝
 
 ╔═══════════════════╗
