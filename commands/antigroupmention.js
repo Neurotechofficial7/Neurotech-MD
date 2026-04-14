@@ -93,7 +93,7 @@ const handleAntiGroupMention = async (sock, chatId, message, senderId) => {
 
         // ================= GROUP MENTION DETECTION =================
         const hasFakeMention =
-            text.toLowerCase().includes('@group') ||
+            text.toLowerCase().includes('@you mentioned this group') ||
             text.toLowerCase().includes('@everyone') ||
             text.toLowerCase().includes('@all');
 
