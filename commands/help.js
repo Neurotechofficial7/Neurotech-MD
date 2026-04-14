@@ -41,6 +41,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.url
 ║ ✦.setprefix 
 ║ ✦.restart 
+║ ✦.autostatus on
 ╚═══════════════════╝ 
 
 ╔═══════════════════╗
