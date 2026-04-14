@@ -388,10 +388,6 @@ await handleAutoStatusDownload(sock, message);
                 }
                 commandExecuted = true;
                 break;
-                case userMessage.startsWith('.autostatusdownload'):
-    const dlArgs = userMessage.split(' ').slice(1);
-    await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
-    break;
             }
             case userMessage.startsWith('.kick'):
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
