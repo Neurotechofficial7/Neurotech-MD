@@ -72,6 +72,7 @@ const newsCommand = require('./commands/news');
 const kickCommand = require('./commands/kick');
 const simageCommand = require('./commands/simage');
 const attpCommand = require('./commands/attp');
+const deepseekCommand = require('./commands/deepseek');
 const { startHangman, guessLetter } = require('./commands/hangman');
 const { startTrivia, answerTrivia } = require('./commands/trivia');
 const { complimentCommand } = require('./commands/compliment');
@@ -555,6 +556,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
                     await hideTagCommand(sock, chatId, senderId, messageText, replyMessage, message);
                 }
                 break;
+                case userMessage.startsWith('.deepseek'):
+    const dsArgs = userMessage.split(' ').slice(1);
+    await deepseekCommand(sock, chatId, message, dsArgs);
+    break;
             case userMessage.startsWith('.tag'):
                 const messageText = rawText.slice(4).trim();  // use rawText here, not userMessage
                 const replyMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage || null;
