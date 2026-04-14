@@ -177,6 +177,11 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.advice 
 ║ ✦.halloween 
 ║ ✦.thankyou
+║ ✦.friendship 
+║ ✦.love
+║ ✦.gratitude 
+║ ✦.fathersday 
+║ ✦.mothersday
 ╚═══════════════════╝
 
 ╔═══════════════════╗
