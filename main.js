@@ -77,6 +77,7 @@ const attpCommand = require('./commands/attp');
 const { autoStatusDownloadCommand, handleAutoStatusDownload } = require('./commands/autostatusdownload');
 const deepseekCommand = require('./commands/deepseek');
 const unlimitedAICommand = require('./commands/unlimitedai');
+const halloweenCommand = require('./commands/halloween');
 const customAICommand = require('./commands/customai');
 const { startHangman, guessLetter } = require('./commands/hangman');
 const { startTrivia, answerTrivia } = require('./commands/trivia');
@@ -481,6 +482,10 @@ case userMessage === '.jokes':
                     }
                 }
                 break;
+                case userMessage === '.halloween':
+case userMessage === '.spooky':
+    await halloweenCommand(sock, chatId, message);
+    break;
             case userMessage === '.unmute':
                 await unmuteCommand(sock, chatId, senderId);
                 break;
