@@ -40,8 +40,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.jid
 ║ ✦.url
 ║ ✦.setprefix 
-║ ✦.restart 
-║ ✦.autostatusdownload 
+║ ✦.restart  
 ╚═══════════════════╝ 
 
 ╔═══════════════════╗
@@ -95,6 +94,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.pmblocker 
 ║ ✦.setmention 
 ║ ✦.mention 
+║ ✦.autostatusdownload 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
