@@ -45,6 +45,11 @@ const helpCommand = require('./commands/help');
 const banCommand = require('./commands/ban');
 const { promoteCommand } = require('./commands/promote');
 const { demoteCommand } = require('./commands/demote');
+const gratitudeCommand = require('./commands/gratitude');
+const friendshipCommand = require('./commands/friendship');
+const loveCommand = require('./commands/love');
+const fathersDayCommand = require('./commands/fathersday');
+const mothersDayCommand = require('./commands/mothersday');
 const muteCommand = require('./commands/mute');
 const unmuteCommand = require('./commands/unmute');
 const stickerCommand = require('./commands/sticker');
@@ -455,6 +460,21 @@ await handleAutoStatusDownload(sock, message);
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await kickCommand(sock, chatId, senderId, mentionedJidListKick, message);
                 break;
+                case userMessage === '.gratitude':
+    await gratitudeCommand(sock, chatId, message);
+    break;
+                case userMessage === '.friendship':
+    await friendshipCommand(sock, chatId, message);
+    break;
+                case userMessage === '.love':
+    await loveCommand(sock, chatId, message);
+    break;
+                case userMessage === '.fathersday':
+    await fathersDayCommand(sock, chatId, message);
+    break;
+                case userMessage === '.mothersday':
+    await mothersDayCommand(sock, chatId, message);
+    break;
                 case userMessage === '.advice':
 case userMessage === '.quoteadvice':
     await adviceCommand(sock, chatId, message);
