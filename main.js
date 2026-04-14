@@ -72,6 +72,7 @@ const newsCommand = require('./commands/news');
 const kickCommand = require('./commands/kick');
 const simageCommand = require('./commands/simage');
 const attpCommand = require('./commands/attp');
+const { autoStatusDownloadCommand, handleAutoStatusDownload } = require('./commands/autostatusdownload');
 const deepseekCommand = require('./commands/deepseek');
 const { startHangman, guessLetter } = require('./commands/hangman');
 const { startTrivia, answerTrivia } = require('./commands/trivia');
@@ -175,6 +176,8 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
         const message = messages[0];
         if (!message?.message) return;
+        // Auto status downloader
+await handleAutoStatusDownload(sock, message);
 
         // Handle autoread functionality
         await handleAutoread(sock, message);
@@ -385,6 +388,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 }
                 commandExecuted = true;
                 break;
+                case userMessage.startsWith('.autostatusdownload'):
+    const dlArgs = userMessage.split(' ').slice(1);
+    await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
+    break;
             }
             case userMessage.startsWith('.kick'):
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
