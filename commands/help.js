@@ -148,6 +148,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.deepimg
 ║ ✦.muslimai
 ║ ✦.magicstudio
+║ ✦.veo3 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
