@@ -114,6 +114,7 @@ const { handleDemotionEvent } = require('./commands/demote');
 const viewOnceCommand = require('./commands/viewonce');
 const clearSessionCommand = require('./commands/clearsession');
 const approveAllCommand = require('./commands/approveall');
+const magicStudioCommand = require('./commands/magicstudio');
 const { autoStatusCommand, handleStatusUpdate } = require('./commands/autostatus');
 const { simpCommand } = require('./commands/simp');
 const { stupidCommand } = require('./commands/stupid');
@@ -490,6 +491,9 @@ await handleAutoStatusDownload(sock, message);
                 await stickerCommand(sock, chatId, message);
                 commandExecuted = true;
                 break;
+                case userMessage.startsWith('.magicstudio'):
+    await magicStudioCommand(sock, chatId, message);
+    break;
                 case userMessage === '.approveall':
     await approveAllCommand(sock, chatId, message);
     break;
