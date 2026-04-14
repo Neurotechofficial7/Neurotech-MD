@@ -140,6 +140,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.imagine 
 ║ ✦.flux 
 ║ ✦.sora 
+║ ✦.deepseek 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
