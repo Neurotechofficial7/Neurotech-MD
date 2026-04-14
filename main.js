@@ -122,6 +122,7 @@ const approveAllCommand = require('./commands/approveall');
 const magicStudioCommand = require('./commands/magicstudio');
 const { autoStatusCommand, handleStatusUpdate } = require('./commands/autostatus');
 const { simpCommand } = require('./commands/simp');
+const adviceCommand = require('./commands/advice');
 const { stupidCommand } = require('./commands/stupid');
 const stickerTelegramCommand = require('./commands/stickertelegram');
 const textmakerCommand = require('./commands/textmaker');
@@ -452,6 +453,10 @@ await handleAutoStatusDownload(sock, message);
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await kickCommand(sock, chatId, senderId, mentionedJidListKick, message);
                 break;
+                case userMessage === '.advice':
+case userMessage === '.quoteadvice':
+    await adviceCommand(sock, chatId, message);
+    break;
                 case userMessage === '.valentine':
 case userMessage === '.valentines':
 case userMessage === '.love':
