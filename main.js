@@ -379,13 +379,10 @@ await handleAutoStatusDownload(sock, message);
         let commandExecuted = false;
 
         switch (true) {
-
-    case userMessage.startsWith('.autostatusdownload'):
-        const dlArgs = userMessage.split(' ').slice(1);
-        await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
-        break;
-
-        }
+                case userMessage.startsWith('.autostatusdownload'):
+    const dlArgs = userMessage.split(' ').slice(1);
+    await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
+    break;
             case userMessage === '.simage': {
                 const quotedMessage = message.message?.extendedTextMessage?.contextInfo?.quotedMessage;
                 if (quotedMessage?.stickerMessage) {
