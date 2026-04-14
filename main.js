@@ -45,6 +45,10 @@ const helpCommand = require('./commands/help');
 const banCommand = require('./commands/ban');
 const { promoteCommand } = require('./commands/promote');
 const { demoteCommand } = require('./commands/demote');
+const nekoCommand = require('./commands/neko');
+const waifuCommand = require('./commands/waifu');
+const konachanCommand = require('./commands/konachan');
+const randomAnimeCommand = require('./commands/randomanime');
 const gratitudeCommand = require('./commands/gratitude');
 const friendshipCommand = require('./commands/friendship');
 const loveCommand = require('./commands/love');
@@ -465,7 +469,21 @@ await handleAutoStatusDownload(sock, message);
             case userMessage.startsWith('.kick'):
                 const mentionedJidListKick = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await kickCommand(sock, chatId, senderId, mentionedJidListKick, message);
-                break;
+                break;case userMessage === '.neko':
+    await nekoCommand(sock, chatId, message);
+    break;
+
+case userMessage === '.waifu':
+    await waifuCommand(sock, chatId, message);
+    break;
+
+case userMessage === '.konachan':
+    await konachanCommand(sock, chatId, message);
+    break;
+
+case userMessage === '.randomanime':
+    await randomAnimeCommand(sock, chatId, message);
+    break;
                 case userMessage === '.gratitude':
     await gratitudeCommand(sock, chatId, message);
     break;
