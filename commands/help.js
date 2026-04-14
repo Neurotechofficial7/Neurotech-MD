@@ -182,6 +182,12 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.gratitude 
 ║ ✦.fathersday 
 ║ ✦.mothersday
+║ ✦.heartbreak
+║ ✦.christmas 
+║ ✦.newyear
+║ ✦.boyfriendsday
+║ ✦.girlfriendsday
+║ ✦.pickupline
 ╚═══════════════════╝
 
 ╔═══════════════════╗
