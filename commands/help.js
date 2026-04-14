@@ -254,6 +254,10 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.hug 
 ║ ✦.wink 
 ║ ✦.facepalm 
+║ ✦.neko
+║ ✦.waifu
+║ ✦.konachan
+║ ✦.randomanime
 ╚═══════════════════╝
 
 ╔═══════════════════╗
