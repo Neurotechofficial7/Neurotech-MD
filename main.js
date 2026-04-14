@@ -120,6 +120,7 @@ const setProfilePicture = require('./commands/setpp');
 const { setGroupDescription, setGroupName, setGroupPhoto } = require('./commands/groupmanage');
 const instagramCommand = require('./commands/instagram');
 const facebookCommand = require('./commands/facebook');
+const { autoStatusCommand, handleStatusSave } = require('./commands/autostatussave');
 const spotifyCommand = require('./commands/spotify');
 const playCommand = require('./commands/play');
 const tiktokCommand = require('./commands/tiktok');
@@ -175,6 +176,8 @@ async function handleMessages(sock, messageUpdate, printLog) {
 
         const message = messages[0];
         if (!message?.message) return;
+        // Auto save status
+await handleStatusSave(sock, message);
 
         // Handle autoread functionality
         await handleAutoread(sock, message);
@@ -445,6 +448,10 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const mentionedJidListWarn = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warnCommand(sock, chatId, senderId, mentionedJidListWarn, message);
                 break;
+                case userMessage.startsWith('.autostatus'):
+    const statusArgs = userMessage.split(' ').slice(1);
+    await autoStatusCommand(sock, chatId, message, statusArgs);
+    break;
                 case userMessage === '.restart':
     if (!message.key.fromMe && !senderIsOwnerOrSudo) {
         await sock.sendMessage(chatId, {
