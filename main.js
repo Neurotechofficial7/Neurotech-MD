@@ -109,6 +109,7 @@ const viewOnceCommand = require('./commands/viewonce');
 const clearSessionCommand = require('./commands/clearsession');
 const approveAllCommand = require('./commands/approveall');
 const { autoStatusCommand, handleStatusUpdate } = require('./commands/autostatus');
+const { antigroupmentionCommand, handleAntiGroupMention } = require('./commands/antigroupmention');
 const { simpCommand } = require('./commands/simp');
 const { stupidCommand } = require('./commands/stupid');
 const stickerTelegramCommand = require('./commands/stickertelegram');
@@ -306,6 +307,7 @@ async function handleMessages(sock, messageUpdate, printLog) {
             await handleAutotypingForMessage(sock, chatId, userMessage);
 
             if (isGroup) {
+                await handleAntiGroupMention(sock, chatId, message, senderId);
                 // Always run moderation features (antitag) regardless of mode
                 await handleTagDetection(sock, chatId, message, senderId);
                 await handleMentionDetection(sock, chatId, message);
@@ -692,6 +694,20 @@ async function handleMessages(sock, messageUpdate, printLog) {
                 const mentionedJidListPromote = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await promoteCommand(sock, chatId, mentionedJidListPromote, message);
                 break;
+                case userMessage.startsWith('.antigroupmention'): {
+    const antiGroupArgs = userMessage.split(' ').slice(1);
+    const adminStatus = await isAdmin(sock, chatId, senderId);
+
+    await antigroupmentionCommand(
+        sock,
+        chatId,
+        message,
+        senderId,
+        antiGroupArgs,
+        adminStatus.isSenderAdmin
+    );
+    break;
+                    }
             case userMessage.startsWith('.demote'):
                 const mentionedJidListDemote = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await demoteCommand(sock, chatId, mentionedJidListDemote, message);
