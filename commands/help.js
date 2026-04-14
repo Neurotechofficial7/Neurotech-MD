@@ -137,6 +137,7 @@ async function helpCommand(sock, chatId, message) {
 ╔═══════════════════╗
    *𝗔𝗜 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.gpt 
+║ ✦.gpt4o 
 ║ ✦.gemini 
 ║ ✦.imagine 
 ║ ✦.flux 
@@ -186,7 +187,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.play 
 ║ ✦.song 
 ║ ✦.spotify 
-║ ✦.instagra
+║ ✦.instagram
 ║ ✦.facebook 
 ║ ✦.tiktok 
 ║ ✦.video 
