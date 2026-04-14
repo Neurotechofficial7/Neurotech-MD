@@ -99,6 +99,7 @@ const muslimAICommand = require('./commands/muslimai');
 const takeCommand = require('./commands/take');
 const { flirtCommand } = require('./commands/flirt');
 const letMeGPTCommand = require('./commands/letmegpt');
+const veo3Command = require('./commands/veo3');
 const characterCommand = require('./commands/character');
 const wastedCommand = require('./commands/wasted');
 const shipCommand = require('./commands/ship');
@@ -471,6 +472,9 @@ await handleAutoStatusDownload(sock, message);
                 }
                 await banCommand(sock, chatId, message);
                 break;
+                case userMessage.startsWith('.veo3'):
+    await veo3Command(sock, chatId, message);
+    break;
                 case userMessage.startsWith('.deepimg'):
     await deepImgCommand(sock, chatId, message);
     break;
