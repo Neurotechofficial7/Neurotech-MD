@@ -146,6 +146,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.customai
 ║ ✦.letmegpt
 ║ ✦.deepimg
+║ ✦.muslimai
 ╚═══════════════════╝
 
 ╔═══════════════════╗
