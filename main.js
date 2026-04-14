@@ -95,6 +95,7 @@ const githubCommand = require('./commands/github');
 const { handleAntiBadwordCommand, handleBadwordDetection } = require('./lib/antibadword');
 const antibadwordCommand = require('./commands/antibadword');
 const { handleChatbotCommand, handleChatbotResponse } = require('./commands/chatbot');
+const muslimAICommand = require('./commands/muslimai');
 const takeCommand = require('./commands/take');
 const { flirtCommand } = require('./commands/flirt');
 const letMeGPTCommand = require('./commands/letmegpt');
@@ -726,6 +727,9 @@ await handleAutoStatusDownload(sock, message);
             case userMessage.startsWith('.compliment'):
                 await complimentCommand(sock, chatId, message);
                 break;
+                case userMessage.startsWith('.muslimai'):
+    await muslimAICommand(sock, chatId, message);
+    break;
             case userMessage.startsWith('.insult'):
                 await insultCommand(sock, chatId, message);
                 break;
