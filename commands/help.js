@@ -145,7 +145,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-   *𝗜𝗠𝗔𝗚𝗘/𝗩𝗜𝗗𝗘𝗢 𝗔𝗜 *:
+   *𝗜𝗠𝗔𝗚𝗘/𝗩𝗜𝗗𝗘𝗢 𝗔𝗜*:
    ║ ✦.magicstudio 
    ║ ✦.deepimg 
    ║ ✦.veo3
@@ -166,7 +166,7 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-   *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗠𝗔𝗜𝗟 *:
+   *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗠𝗔𝗜𝗟*:
    ║ ✦.tempemail
    ║ ✦.checkemail 
 ╚═══════════════════╝
