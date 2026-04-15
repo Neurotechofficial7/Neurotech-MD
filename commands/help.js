@@ -156,7 +156,7 @@ async function helpCommand(sock, chatId, message) {
 ╔═══════════════════╗
    *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗡𝗨𝗠𝗕𝗘𝗥*:
    ║ ✦.tempnumber
-   ║ ✦.
+   ║ ✦.checksms
 ╚═══════════════════╝
 
 ╔═══════════════════╗
