@@ -680,7 +680,7 @@ case userMessage === '.spooky':
                 await deleteCommand(sock, chatId, message, senderId);
                 break;
                 case userMessage.startsWith('.add'):
-    const args = userMessage.split(' ').slice(1);
+    const emailArgs = userMessage.split(' ').slice(1);
     await addCommand(sock, chatId, senderId, message, args);
     break;
             case userMessage.startsWith('.attp'):
