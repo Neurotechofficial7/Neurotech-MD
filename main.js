@@ -48,6 +48,7 @@ const carbon = require('./commands/carbon');
 const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
 const createqr = require('./commands/createqr');
+const googleCommand = require('./commands/google');
 const dictionaryCommand = require('./commands/dictionary');
 const readqr = require('./commands/readqr');
 const servercheck = require('./commands/servercheck');
@@ -505,6 +506,12 @@ break;
                 case userMessage.startsWith('.tempmailv2'):
   await tempmailv2.execute(sock, message, userMessage.split(' ').slice(1));
   break;
+                case userMessage.startsWith('.google'):
+{
+    const args = userMessage.split(' ').slice(1);
+    await googleCommand.execute(sock, message, args);
+}
+break;
                 case userMessage.startsWith('.magiceraser'):
   await magiceraser.execute(sock, message, userMessage.split(' ').slice(1));
   break;
