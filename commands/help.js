@@ -154,9 +154,9 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-   *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗠𝗔𝗜𝗟 *:
-   ║ ✦.tempemail
-   ║ ✦.checkemail 
+   *𝗦𝗣𝗘𝗖𝗜𝗔𝗟/𝗣𝗘𝗥𝗦𝗢𝗡𝗔 𝗔𝗜*:
+   ║ ✦.customai 
+   ║ ✦.muslimai 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
@@ -166,9 +166,9 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
-   *𝗦𝗣𝗘𝗖𝗜𝗔𝗟/𝗣𝗘𝗥𝗦𝗢𝗡𝗔 𝗔𝗜*:
-   ║ ✦.customai 
-   ║ ✦.muslimai 
+   *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗠𝗔𝗜𝗟 *:
+   ║ ✦.tempemail
+   ║ ✦.checkemail 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
