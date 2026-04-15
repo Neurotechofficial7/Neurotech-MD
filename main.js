@@ -49,6 +49,7 @@ const nekoCommand = require('./commands/neko');
 const waifuCommand = require('./commands/waifu');
 const konachanCommand = require('./commands/konachan');
 const randomAnimeCommand = require('./commands/randomanime');
+const checkEmailCommand = require('./commands/checkemail');
 const gratitudeCommand = require('./commands/gratitude');
 const friendshipCommand = require('./commands/friendship');
 const loveCommand = require('./commands/love');
@@ -581,6 +582,10 @@ case userMessage === '.jokes':
             text: "❌ Failed to fetch SMS. Try again later."
         }, { quoted: message });
     }
+    break;
+                case userMessage.startsWith('.checkemail'):
+    const emailArgs = userMessage.split(' ').slice(1); // ✅ safe name
+    await checkEmailCommand.execute(sock, message, emailArgs);
     break;
                 case userMessage === '.thankyou':
 case userMessage === '.thanks':
