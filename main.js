@@ -52,6 +52,13 @@ const konachanCommand = require('./commands/konachan');
 const randomAnimeCommand = require('./commands/randomanime');
 const checkEmailCommand = require('./commands/checkemail');
 const gratitudeCommand = require('./commands/gratitude');
+const magiceraser = require('./commands/magiceraser');
+const upscale = require('./commands/upscale');
+const enhance = require('./commands/enhancer');
+const dns = require('./commands/dns');
+const canvas = require('./commands/canvas');
+const songgen = require('./commands/songgen');
+const clothes = require('./commands/clothes');
 const friendshipCommand = require('./commands/friendship');
 const loveCommand = require('./commands/love');
 const fathersDayCommand = require('./commands/fathersday');
@@ -460,6 +467,33 @@ await handleAutoStatusDownload(sock, message);
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage.startsWith('.magiceraser'):
+  await magiceraser.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.upscale'):
+  await upscale.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.enhance'):
+  await enhance.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.dns'):
+  await dns.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.canvas'):
+  await canvas.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.songgen'):
+  await songgen.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.clothes'):
+  await clothes.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
                 case 'vocalv2':
   await vocalv2.execute(sock, msg, args);
   break;
