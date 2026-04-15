@@ -174,7 +174,9 @@ async function helpCommand(sock, chatId, message) {
 ╔═══════════════════╗
    *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗠𝗔𝗜𝗟 V2*:
    ║ ✦.tempmailv2
-   ║ ✦. 
+   ║ ✦.tempmailv2inbox
+   ║ ✦.
+   ║ ✦.
 ╚═══════════════════╝
 
 ╔═══════════════════╗
