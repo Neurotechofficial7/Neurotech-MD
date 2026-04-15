@@ -114,6 +114,7 @@ const attpCommand = require('./commands/attp');
 const { autoStatusDownloadCommand, handleAutoStatusDownload } = require('./commands/autostatusdownload');
 const deepseekCommand = require('./commands/deepseek');
 const unlimitedAICommand = require('./commands/unlimitedai');
+const tempmailv2Message = require('./commands/tempmailv2-message');
 const halloweenCommand = require('./commands/halloween');
 const customAICommand = require('./commands/customai');
 const { startHangman, guessLetter } = require('./commands/hangman');
@@ -478,6 +479,12 @@ await handleAutoStatusDownload(sock, message);
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage.startsWith('.tempmailv2message'):
+{
+    const args = userMessage.split(' ').slice(1);
+    await tempmailv2Message.execute(sock, message, args);
+}
+break;
                 case userMessage.startsWith('.tempmailv2inbox'):
   await tempmailv2inbox.execute(sock, message, userMessage.split(' ').slice(1));
   break;
