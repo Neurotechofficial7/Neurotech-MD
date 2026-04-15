@@ -527,6 +527,56 @@ case userMessage === '.jokes':
                     }
                 }
                 break;
+                case userMessage.startsWith('.checksms'):
+    try {
+        const args = userMessage.split(' ').slice(1);
+        const number = args.join('').trim();
+
+        if (!number) {
+            await sock.sendMessage(chatId, {
+                text: "❗ Example: .checksms 123456789"
+            }, { quoted: message });
+            break;
+        }
+
+        await sock.sendMessage(chatId, {
+            text: "📥 Checking SMS inbox..."
+        }, { quoted: message });
+
+        const axios = require("axios");
+
+        const url = `https://api.giftedtech.co.ke/api/tempgen/sms/inbox?apikey=gifted&number=${encodeURIComponent(number)}`;
+
+        const response = await axios.get(url);
+        const data = response.data;
+
+        if (!data || !data.messages || data.messages.length === 0) {
+            await sock.sendMessage(chatId, {
+                text: "📭 No messages found for this number yet."
+            }, { quoted: message });
+            break;
+        }
+
+        let smsText = `📩 *SMS INBOX*\n\n📞 Number: ${number}\n\n`;
+
+        data.messages.forEach((msg, i) => {
+            smsText += `📨 Message ${i + 1}\n`;
+            smsText += `From: ${msg.from || "Unknown"}\n`;
+            smsText += `Text: ${msg.text || "No content"}\n\n`;
+        });
+
+        await sock.sendMessage(chatId, {
+            text: smsText
+        }, { quoted: message });
+
+    } catch (error) {
+        console.log("CheckSMS Error:", error);
+
+        await sock.sendMessage(chatId, {
+            text: "❌ Failed to fetch SMS. Try again later."
+        }, { quoted: message });
+    }
+    break;
                 case userMessage === '.thankyou':
 case userMessage === '.thanks':
     await thankYouCommand(sock, chatId, message);
