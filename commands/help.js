@@ -164,18 +164,13 @@ async function helpCommand(sock, chatId, message) {
    ║ ✦.bible 
    ║ ✦.dictionary 
    ║ ✦.google 
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
+   ║ ✦.wallpaper 
+   ║ ✦.playstore 
+   ║ ✦.happymod
+   ║ ✦.apkmirror 
+   ║ ✦.soundcloud 
+   ║ ✦.wikimedia 
+   ║ ✦.shazam 
    ║ ✦.
    ║ ✦.
    ║ ✦.
