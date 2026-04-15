@@ -21,24 +21,32 @@ module.exports = {
 
       const res = await axios.get(api);
       const data = res.data || {};
-
       const result = data.result || {};
 
+      // ================= SAFE DEFINITIONS =================
       const definition =
-        result.definition ||
-        result.meaning ||
-        result.def ||
-        "Not available";
+        typeof result.definition === "string"
+          ? result.definition
+          : result.definition?.english ||
+            result.definition?.meaning ||
+            result.definition?.def ||
+            (result.definition ? JSON.stringify(result.definition, null, 2) : "Not available");
 
       const phonetic =
-        result.phonetic ||
-        result.pronunciation ||
-        "Not available";
+        typeof result.phonetic === "string"
+          ? result.phonetic
+          : result.pronunciation ||
+            result.phonetic?.text ||
+            "Not available";
 
       const example =
-        result.example ||
-        "Not available";
+        typeof result.example === "string"
+          ? result.example
+          : result.example?.text ||
+            result.example?.sentence ||
+            "Not available";
 
+      // ================= OUTPUT =================
       const text = `📖 *DICTIONARY RESULT*
 
 🔤 Word: ${word}
@@ -52,7 +60,7 @@ ${definition}
 💡 Example:
 ${example}
 
-✨ Powered by Gifted API`;
+✨ Powered by Neurotech API`;
 
       await sock.sendMessage(from, { text }, { quoted: msg });
 
@@ -60,7 +68,7 @@ ${example}
       console.log(err);
 
       await sock.sendMessage(from, {
-        text: "❌ Error fetching word definition. Try again later."
+        text: "❌ Error fetching dictionary data. Try again later."
       }, { quoted: msg });
     }
   }
