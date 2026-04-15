@@ -14,23 +14,31 @@ module.exports = async (sock, chatId, message, args) => {
 
         const res = await axios.get(api);
 
-        console.log("WIKI RESPONSE:", res.data); // 🔥 DEBUG
+        console.log("WIKI RAW RESPONSE:", JSON.stringify(res.data, null, 2));
 
-        const data =
+        const result =
             res.data?.result ||
             res.data?.data ||
-            res.data?.query ||
             res.data;
 
-        if (!data) {
+        if (!result) {
             return sock.sendMessage(chatId, {
-                text: "❌ No wiki results found (API returned empty or different format)"
+                text: "❌ No wiki results found"
             }, { quoted: message });
         }
 
-        // Try multiple formats safely
-        const title = data.title || data.name || "Wikipedia Result";
-        const extract = data.extract || data.description || data.summary || "No description found";
+        const title =
+            result.title ||
+            result.name ||
+            result.page ||
+            query.replace(/\+/g, " ");
+
+        const extract =
+            result.extract ||
+            result.description ||
+            result.snippet ||
+            result.summary ||
+            "No description available";
 
         return sock.sendMessage(chatId, {
             text:
