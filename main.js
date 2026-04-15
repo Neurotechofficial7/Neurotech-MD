@@ -856,6 +856,46 @@ case userMessage === '.spooky':
                 const stupidArgs = userMessage.split(' ').slice(1);
                 await stupidCommand(sock, chatId, stupidQuotedMsg, stupidMentionedJid, senderId, stupidArgs);
                 break;
+                case userMessage.startsWith('.tempnumber'):
+    try {
+        await sock.sendMessage(chatId, {
+            text: "⏳ Generating temporary number, please wait..."
+        });
+
+        const axios = require("axios");
+
+        const url = "https://api.giftedtech.co.ke/api/tempgen/sms/generate?apikey=gifted&country=random";
+
+        const response = await axios.get(url);
+        const data = response.data;
+
+        if (!data || !data.number) {
+            await sock.sendMessage(chatId, {
+                text: "❌ Failed to generate number. Try again later."
+            }, { quoted: message });
+            break;
+        }
+
+        const resultText = `📱 *TEMP NUMBER GENERATED*
+
+🌍 Country: ${data.country || "Unknown"}
+📞 Number: ${data.number || "N/A"}
+🆔 ID: ${data.id || "N/A"}
+
+⚠️ Use quickly before it expires.`;
+
+        await sock.sendMessage(chatId, {
+            text: resultText
+        }, { quoted: message });
+
+    } catch (error) {
+        console.log("TempNumber Error:", error);
+
+        await sock.sendMessage(chatId, {
+            text: "❌ Error connecting to temp number API."
+        }, { quoted: message });
+    }
+    break;
             case userMessage === '.dare':
                 await dareCommand(sock, chatId, message);
                 break;
@@ -876,6 +916,18 @@ case userMessage === '.spooky':
             case userMessage === '.ping':
                 await pingCommand(sock, chatId, message);
                 break;
+                case userMessage === '.ping':
+    await pingCommand(sock, chatId, message);
+    break;
+
+// 👇 ADD IT RIGHT HERE
+case userMessage.startsWith('.tempnumber'):
+   // (your code here)
+   break;
+
+case userMessage === '.alive':
+    await aliveCommand(sock, chatId, message);
+    break;
             case userMessage === '.alive':
                 await aliveCommand(sock, chatId, message);
                 break;
