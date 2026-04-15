@@ -43,6 +43,7 @@ const { autoreadCommand, isAutoreadEnabled, handleAutoread } = require('./comman
 const tagAllCommand = require('./commands/tagall');
 const helpCommand = require('./commands/help');
 const banCommand = require('./commands/ban');const noiseremover = require('./commands/noiseremover');
+const tempmailv2 = require('./commands/tempmailv2');
 const carbon = require('./commands/carbon');
 const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
@@ -476,6 +477,9 @@ await handleAutoStatusDownload(sock, message);
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage.startsWith('.tempmailv2'):
+  await tempmailv2.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
                 case userMessage.startsWith('.magiceraser'):
   await magiceraser.execute(sock, message, userMessage.split(' ').slice(1));
   break;
