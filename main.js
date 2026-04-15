@@ -56,6 +56,7 @@ const encryptv3 = require('./commands/encryptv3');
 const { promoteCommand } = require('./commands/promote');
 const { demoteCommand } = require('./commands/demote');
 const nekoCommand = require('./commands/neko');
+const tempmailv2inbox = require('./commands/tempmailv2inbox');
 const waifuCommand = require('./commands/waifu');
 const vocalv2 = require('./commands/vocalv2');
 const konachanCommand = require('./commands/konachan');
@@ -477,6 +478,9 @@ await handleAutoStatusDownload(sock, message);
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage.startsWith('.tempmailv2inbox'):
+  await tempmailv2inbox.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
                 case userMessage.startsWith('.tempmailv2'):
   await tempmailv2.execute(sock, message, userMessage.split(' ').slice(1));
   break;
