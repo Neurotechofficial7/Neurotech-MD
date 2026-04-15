@@ -909,40 +909,46 @@ case userMessage === '.spooky':
                 case userMessage.startsWith('.tempnumber'):
     try {
         await sock.sendMessage(chatId, {
-            text: "⏳ Generating temporary number, please wait..."
-        });
+            text: "⏳ Generating temporary number..."
+        }, { quoted: message });
 
         const axios = require("axios");
 
         const url = "https://api.giftedtech.co.ke/api/tempgen/sms/generate?apikey=gifted&country=random";
 
         const response = await axios.get(url);
+        console.log("API RESPONSE:", response.data); // 👈 IMPORTANT
+
         const data = response.data;
 
-        if (!data || !data.number) {
+        const number = data.number || data.result?.number;
+        const country = data.country || data.result?.country;
+        const id = data.id || data.result?.id;
+
+        if (!number) {
             await sock.sendMessage(chatId, {
-                text: "❌ Failed to generate number. Try again later."
+                text: "❌ API did not return a number."
             }, { quoted: message });
             break;
         }
 
-        const resultText = `📱 *TEMP NUMBER GENERATED*
+        const text = `📱 TEMP NUMBER GENERATED
 
-🌍 Country: ${data.country || "Unknown"}
-📞 Number: ${data.number || "N/A"}
-🆔 ID: ${data.id || "N/A"}
+🌍 Country: ${country || "Unknown"}
+📞 Number: ${number}
+🆔 ID: ${id || "N/A"}
 
 ⚠️ Use quickly before it expires.`;
 
         await sock.sendMessage(chatId, {
-            text: resultText
+            text
         }, { quoted: message });
 
-    } catch (error) {
-        console.log("TempNumber Error:", error);
+    } catch (err) {
+        console.log("TempNumber Error:", err.message);
 
         await sock.sendMessage(chatId, {
-            text: "❌ Error connecting to temp number API."
+            text: "❌ API error. Try again later."
         }, { quoted: message });
     }
     break;
