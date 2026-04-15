@@ -54,6 +54,7 @@ const dbase = require('./commands/dbase');
 const ssphone = require('./commands/ssphone');
 const encryptv3 = require('./commands/encryptv3');
 const { promoteCommand } = require('./commands/promote');
+const bibleCommand = require('./commands/bible');
 const { demoteCommand } = require('./commands/demote');
 const nekoCommand = require('./commands/neko');
 const tempmailv2inbox = require('./commands/tempmailv2inbox');
@@ -483,6 +484,12 @@ await handleAutoStatusDownload(sock, message);
 {
     const args = userMessage.split(' ').slice(1);
     await tempmailv2Message.execute(sock, message, args);
+}
+break;
+                case userMessage.startsWith('.bible'):
+{
+    const args = userMessage.split(' ').slice(1);
+    await bibleCommand.execute(sock, message, args);
 }
 break;
                 case userMessage.startsWith('.tempmailv2inbox'):
