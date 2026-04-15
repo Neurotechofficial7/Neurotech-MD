@@ -48,6 +48,7 @@ const carbon = require('./commands/carbon');
 const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
 const createqr = require('./commands/createqr');
+const dictionaryCommand = require('./commands/dictionary');
 const readqr = require('./commands/readqr');
 const servercheck = require('./commands/servercheck');
 const dbase = require('./commands/dbase');
@@ -480,6 +481,12 @@ await handleAutoStatusDownload(sock, message);
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage.startsWith('.dictionary'):
+{
+    const args = userMessage.split(' ').slice(1);
+    await dictionaryCommand.execute(sock, message, args);
+}
+break;
                 case userMessage.startsWith('.tempmailv2message'):
 {
     const args = userMessage.split(' ').slice(1);
