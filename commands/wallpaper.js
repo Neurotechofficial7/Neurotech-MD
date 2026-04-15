@@ -13,23 +13,36 @@ module.exports = async (sock, chatId, message, args) => {
         const api = `https://api.giftedtech.co.ke/api/search/wallpaper?apikey=gifted&query=${query}`;
 
         const res = await axios.get(api);
-        const data = res.data?.result;
 
-        if (!data) {
+        console.log("WALLPAPER API RESPONSE:", res.data); // 🔥 IMPORTANT DEBUG
+
+        const data =
+            res.data?.result ||
+            res.data?.results ||
+            res.data?.data ||
+            res.data;
+
+        if (!data || (Array.isArray(data) && data.length === 0)) {
             return sock.sendMessage(chatId, {
-                text: "❌ No wallpapers found"
+                text: "❌ No wallpapers found (API empty or changed format)"
             }, { quoted: message });
         }
 
-        let text = "🖼️ WALLPAPERS\n\n";
+        let list = Array.isArray(data) ? data : [];
 
-        data.slice(0, 5).forEach((img, i) => {
-            text += `${i + 1}. ${img.url}\n\n`;
+        let text = "🖼️ WALLPAPER RESULTS\n\n";
+
+        list.slice(0, 5).forEach((img, i) => {
+            text += `${i + 1}. ${img.url || img.image || img.link}\n\n`;
         });
 
         sock.sendMessage(chatId, { text }, { quoted: message });
 
     } catch (e) {
-        console.log(e);
+        console.log("WALLPAPER ERROR:", e);
+
+        sock.sendMessage(chatId, {
+            text: "❌ Error fetching wallpapers"
+        }, { quoted: message });
     }
 };
