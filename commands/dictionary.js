@@ -1,53 +1,30 @@
 const axios = require("axios");
 
-module.exports = {
-  name: "dictionary",
-  description: "Get word definition, phonetic & meaning",
-  category: "tools",
+try {
+  const word = args.join(" ").trim();
 
-  async execute(sock, msg, args) {
-    const from = msg.key.remoteJid;
+  if (!word) {
+    return sock.sendMessage(chatId, {
+      text: "❗ Example: .dictionary dog"
+    }, { quoted: message });
+  }
 
-    const word = args.join(" ").trim();
+  const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
 
-    if (!word) {
-      return sock.sendMessage(from, {
-        text: "❌ Usage:\n.dictionary cat"
-      }, { quoted: msg });
-    }
+  const res = await axios.get(url);
+  const data = res.data[0];
 
-    try {
-      const api = `https://api.giftedtech.co.ke/api/search/dictionary?apikey=gifted&word=${encodeURIComponent(word)}`;
+  const meaning =
+    data?.meanings?.[0]?.definitions?.[0]?.definition || "Not available";
 
-      const res = await axios.get(api);
-      const data = res.data || {};
-      const result = data.result || {};
+  const example =
+    data?.meanings?.[0]?.definitions?.[0]?.example || "Not available";
 
-      // ================= SAFE DEFINITIONS =================
-      const definition =
-        typeof result.definition === "string"
-          ? result.definition
-          : result.definition?.english ||
-            result.definition?.meaning ||
-            result.definition?.def ||
-            (result.definition ? JSON.stringify(result.definition, null, 2) : "Not available");
+  const phonetic =
+    data?.phonetic || data?.phonetics?.[0]?.text || "Not available";
 
-      const phonetic =
-        typeof result.phonetic === "string"
-          ? result.phonetic
-          : result.pronunciation ||
-            result.phonetic?.text ||
-            "Not available";
-
-      const example =
-        typeof result.example === "string"
-          ? result.example
-          : result.example?.text ||
-            result.example?.sentence ||
-            "Not available";
-
-      // ================= OUTPUT =================
-      const text = `📖 *DICTIONARY RESULT*
+  await sock.sendMessage(chatId, {
+    text: `📖 *DICTIONARY RESULT*
 
 🔤 Word: ${word}
 
@@ -55,21 +32,16 @@ module.exports = {
 ${phonetic}
 
 📚 Definition:
-${definition}
+${meaning}
 
 💡 Example:
 ${example}
 
-✨ Powered by Neurotech API`;
+✨ Powered by DictionaryAPI`
+  }, { quoted: message });
 
-      await sock.sendMessage(from, { text }, { quoted: msg });
-
-    } catch (err) {
-      console.log(err);
-
-      await sock.sendMessage(from, {
-        text: "❌ Error fetching dictionary data. Try again later."
-      }, { quoted: msg });
-    }
-  }
-};
+} catch (err) {
+  await sock.sendMessage(chatId, {
+    text: "❌ Word not found or API error."
+  }, { quoted: message });
+}
