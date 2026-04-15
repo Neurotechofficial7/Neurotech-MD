@@ -8,37 +8,35 @@ module.exports = async (sock, chatId, message, args) => {
             }, { quoted: message });
         }
 
-        const query = encodeURIComponent(args.join(" "));
+        const query = args.join(" ");
 
-        const api = `https://api.giftedtech.co.ke/api/search/wikimedia?apikey=gifted&title=${query}`;
+        const api = `https://api.giftedtech.co.ke/api/search/wikimedia?apikey=gifted&title=${encodeURIComponent(query)}`;
 
         const res = await axios.get(api);
 
-        console.log("WIKI RAW RESPONSE:", JSON.stringify(res.data, null, 2));
+        let result = res.data?.result || res.data;
 
-        const result =
-            res.data?.result ||
-            res.data?.data ||
-            res.data;
+        let title = result?.title || query;
 
-        if (!result) {
-            return sock.sendMessage(chatId, {
-                text: "❌ No wiki results found"
-            }, { quoted: message });
+        let desc =
+            result?.extract ||
+            result?.description ||
+            result?.summary;
+
+        // 🔥 IF API FAILS TO GIVE DESCRIPTION → FALLBACK
+        if (!desc) {
+            try {
+                const wiki = await axios.get(
+                    `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`
+                );
+
+                desc = wiki.data?.extract;
+                title = wiki.data?.title || title;
+
+            } catch (e) {
+                desc = "No description available";
+            }
         }
-
-        const title =
-            result.title ||
-            result.name ||
-            result.page ||
-            query.replace(/\+/g, " ");
-
-        const extract =
-            result.extract ||
-            result.description ||
-            result.snippet ||
-            result.summary ||
-            "No description available";
 
         return sock.sendMessage(chatId, {
             text:
@@ -46,7 +44,7 @@ module.exports = async (sock, chatId, message, args) => {
 
 📖 Title: ${title}
 
-📝 ${extract}`
+📝 ${desc}`
         }, { quoted: message });
 
     } catch (e) {
