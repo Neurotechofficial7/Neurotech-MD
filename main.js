@@ -42,7 +42,16 @@ const { autoreadCommand, isAutoreadEnabled, handleAutoread } = require('./comman
 // Command imports
 const tagAllCommand = require('./commands/tagall');
 const helpCommand = require('./commands/help');
-const banCommand = require('./commands/ban');
+const banCommand = require('./commands/ban');const noiseremover = require('./commands/noiseremover');
+const carbon = require('./commands/carbon');
+const proxy = require('./commands/proxy');
+const web2zip = require('./commands/web2zip');
+const createqr = require('./commands/createqr');
+const readqr = require('./commands/readqr');
+const servercheck = require('./commands/servercheck');
+const dbase = require('./commands/dbase');
+const ssphone = require('./commands/ssphone');
+const encryptv3 = require('./commands/encryptv3');
 const { promoteCommand } = require('./commands/promote');
 const { demoteCommand } = require('./commands/demote');
 const nekoCommand = require('./commands/neko');
@@ -525,6 +534,46 @@ case userMessage === '.konachan':
 case userMessage === '.randomanime':
     await randomAnimeCommand(sock, chatId, message);
     break;
+                
+case userMessage.startsWith('.noiseremover'):
+  await noiseremover.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.carbon'):
+  await carbon.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.proxy'):
+  await proxy.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.web2zip'):
+  await web2zip.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.qr'):
+  await createqr.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.readqr'):
+  await readqr.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.servercheck'):
+  await servercheck.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.dbase'):
+  await dbase.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.ssphone'):
+  await ssphone.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
+
+case userMessage.startsWith('.encryptv3'):
+  await encryptv3.execute(sock, message, userMessage.split(' ').slice(1));
+  break;
                 case userMessage === '.gratitude':
     await gratitudeCommand(sock, chatId, message);
     break;
