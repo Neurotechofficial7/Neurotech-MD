@@ -182,6 +182,16 @@ async function helpCommand(sock, chatId, message) {
    ║ ✦.canvas
    ║ ✦.songgen 
    ║ ✦.clothes 
+   ║ ✦.noiseremover
+   ║ ✦.carbon
+   ║ ✦.proxy
+   ║ ✦.web2zip
+   ║ ✦.createqr
+   ║ ✦.readqr
+   ║ ✦.servercheck
+   ║ ✦.dbase
+   ║ ✦.ssphone
+   ║ ✦.encryptv3
 ╚═══════════════════╝
 
 ╔═══════════════════╗
