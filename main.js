@@ -71,6 +71,7 @@ const { Antilink } = require('./lib/antilink');
 const { handleMentionDetection, mentionToggleCommand, setMentionCommand } = require('./commands/mention');
 const memeCommand = require('./commands/meme');
 const tagCommand = require('./commands/tag');
+const tempEmailCommand = require('./commands/tempemail');
 const tagNotAdminCommand = require('./commands/tagnotadmin');
 const hideTagCommand = require('./commands/hidetag');
 const jokeCommand = require('./commands/joke');
@@ -502,6 +503,10 @@ case userMessage === '.randomanime':
                 case userMessage === '.advice':
 case userMessage === '.quoteadvice':
     await adviceCommand(sock, chatId, message);
+    break;
+                case userMessage.startsWith('.tempemail'):
+    const args = userMessage.split(' ').slice(1);
+    await tempEmailCommand.execute(sock, message, args);
     break;
                 case userMessage === '.valentine':
 case userMessage === '.valentines':
