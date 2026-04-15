@@ -163,7 +163,7 @@ async function helpCommand(sock, chatId, message) {
    *𝗦𝗘𝗔𝗥𝗖𝗛 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
    ║ ✦.bible 
    ║ ✦.dictionary 
-   ║ ✦.
+   ║ ✦.google 
    ║ ✦.
    ║ ✦.
    ║ ✦.
