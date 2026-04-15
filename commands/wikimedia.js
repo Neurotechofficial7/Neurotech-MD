@@ -10,28 +10,40 @@ module.exports = async (sock, chatId, message, args) => {
 
         const query = args.join(" ");
 
-        // 1️⃣ Try Gifted API first
-        const api = `https://api.giftedtech.co.ke/api/search/wikimedia?apikey=gifted&title=${encodeURIComponent(query)}`;
+        // 🔥 STEP 1: try Gifted API
+        let title = query;
+        let desc = null;
 
-        const res = await axios.get(api);
+        try {
+            const api = `https://api.giftedtech.co.ke/api/search/wikimedia?apikey=gifted&title=${encodeURIComponent(query)}`;
+            const res = await axios.get(api);
 
-        let data = res.data?.result || res.data;
+            const data = res.data?.result || res.data;
 
-        let title = data?.title || query;
-        let desc = data?.extract || data?.description || data?.summary;
+            title = data?.title || query;
+            desc = data?.extract || data?.description || data?.summary;
 
-        // 2️⃣ Fallback to REAL Wikipedia if no description
-        if (!desc) {
-            const wiki = await axios.get(
-                `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`
-            );
-
-            title = wiki.data?.title || title;
-            desc = wiki.data?.extract;
+        } catch (e) {
+            console.log("Gifted API failed:", e.message);
         }
 
-        // 3️⃣ Final fallback
-        if (!desc) desc = "No description found from Wikipedia.";
+        // 🔥 STEP 2: FIX WIKIPEDIA FALLBACK (IMPORTANT)
+        if (!desc) {
+            try {
+                const wikiTitle = query.replace(/ /g, "_");
+
+                const wiki = await axios.get(
+                    `https://en.wikipedia.org/api/rest_v1/page/summary/${wikiTitle}`
+                );
+
+                title = wiki.data?.title || title;
+                desc = wiki.data?.extract;
+
+            } catch (e) {
+                console.log("Wikipedia fallback failed:", e.message);
+                desc = "No description available";
+            }
+        }
 
         return sock.sendMessage(chatId, {
             text:
@@ -43,7 +55,7 @@ module.exports = async (sock, chatId, message, args) => {
         }, { quoted: message });
 
     } catch (e) {
-        console.log("WIKI ERROR:", e);
+        console.log("FULL WIKI ERROR:", e);
 
         sock.sendMessage(chatId, {
             text: "❌ Error fetching Wikipedia data"
