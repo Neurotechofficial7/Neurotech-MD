@@ -45,6 +45,13 @@ const helpCommand = require('./commands/help');
 const banCommand = require('./commands/ban');const noiseremover = require('./commands/noiseremover');
 const tempmailv2 = require('./commands/tempmailv2');
 const carbon = require('./commands/carbon');
+const shazamCommand = require('./commands/shazam');
+const wikimediaCommand = require('./commands/wikimedia');
+const soundcloudCommand = require('./commands/soundcloud');
+const playstoreCommand = require('./commands/playstore');
+const happymodCommand = require('./commands/happymod');
+const apkmirrorCommand = require('./commands/apkmirror');
+const wallpaperCommand = require('./commands/wallpaper');
 const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
 const createqr = require('./commands/createqr');
@@ -488,6 +495,47 @@ await handleAutoStatusDownload(sock, message);
     await dictionaryCommand.execute(sock, message, args);
 }
 break;
+                case userMessage.startsWith('.shazam'): {
+    const args = userMessage.split(' ').slice(1);
+    await shazamCommand(sock, chatId, message, args);
+    break;
+}
+
+case userMessage.startsWith('.wikimedia'): {
+    const args = userMessage.split(' ').slice(1);
+    await wikimediaCommand(sock, chatId, message, args);
+    break;
+}
+
+case userMessage.startsWith('.soundcloud'): {
+    const args = userMessage.split(' ').slice(1);
+    await soundcloudCommand(sock, chatId, message, args);
+    break;
+}
+
+case userMessage.startsWith('.playstore'): {
+    const args = userMessage.split(' ').slice(1);
+    await playstoreCommand(sock, chatId, message, args);
+    break;
+}
+
+case userMessage.startsWith('.happymod'): {
+    const args = userMessage.split(' ').slice(1);
+    await happymodCommand(sock, chatId, message, args);
+    break;
+}
+
+case userMessage.startsWith('.apkmirror'): {
+    const args = userMessage.split(' ').slice(1);
+    await apkmirrorCommand(sock, chatId, message, args);
+    break;
+}
+
+case userMessage.startsWith('.wallpaper'): {
+    const args = userMessage.split(' ').slice(1);
+    await wallpaperCommand(sock, chatId, message, args);
+    break;
+        }
                 case userMessage.startsWith('.tempmailv2message'):
 {
     const args = userMessage.split(' ').slice(1);
