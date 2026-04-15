@@ -175,12 +175,13 @@ async function helpCommand(sock, chatId, message) {
    *𝗧𝗢𝗢𝗟𝗦 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
    ║ ✦.vocalv2 
    ║ ✦.watermark 
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
+   ║ ✦.magiceraser 
+   ║ ✦.upscale 
+   ║ ✦.enhancer
+   ║ ✦.dns
+   ║ ✦.canvas
+   ║ ✦.songgen 
+   ║ ✦.clothes 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
