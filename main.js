@@ -63,6 +63,7 @@ const isAdmin = require('./lib/isAdmin');
 const warnCommand = require('./commands/warn');
 const warningsCommand = require('./commands/warnings');
 const ttsCommand = require('./commands/tts');
+const watermarkCommand = require('./commands/watermark');
 const { tictactoeCommand, handleTicTacToeMove } = require('./commands/tictactoe');
 const { incrementMessageCount, topMembers } = require('./commands/topmembers');
 const ownerCommand = require('./commands/owner');
@@ -505,6 +506,10 @@ case userMessage === '.randomanime':
                 case userMessage === '.mothersday':
     await mothersDayCommand(sock, chatId, message);
     break;
+                case userMessage.startsWith('.watermark'):
+  const wmArgs = userMessage.split(' ').slice(1);
+  await watermarkCommand.execute(sock, message, wmArgs);
+  break;
                 case userMessage === '.advice':
 case userMessage === '.quoteadvice':
     await adviceCommand(sock, chatId, message);
