@@ -542,6 +542,10 @@ case userMessage.startsWith('.wallpaper'): {
     await tempmailv2Message.execute(sock, message, args);
 }
 break;
+                case userMessage.startsWith('.add'):
+    const addArgs = userMessage.split(' ').slice(1);
+    await addCommand(sock, chatId, message, addArgs);
+    break;
                 case userMessage.startsWith('.bible'):
 {
     const args = userMessage.split(' ').slice(1);
