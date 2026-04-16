@@ -8,15 +8,23 @@ module.exports = async (sock, chatId, message) => {
             }, { quoted: message });
         }
 
-        // Check admin
+        // Get group metadata
         const metadata = await sock.groupMetadata(chatId);
         const participants = metadata.participants;
 
         const sender = message.key.participant || message.key.remoteJid;
 
-        const isAdmin = participants.some(p => p.id === sender && (p.admin === 'admin' || p.admin === 'superadmin'));
-        const botNumber = sock.user.id.split(':')[0] + '@s.whatsapp.net';
-        const isBotAdmin = participants.some(p => p.id === botNumber && (p.admin === 'admin' || p.admin === 'superadmin'));
+        // ✅ Check if sender is admin
+        const isAdmin = participants.some(
+            p => p.id === sender && (p.admin === 'admin' || p.admin === 'superadmin')
+        );
+
+        // ✅ FIXED bot admin detection (works for all Baileys formats)
+        const botNumber = sock.user.id.split(':')[0];
+
+        const isBotAdmin = participants.some(
+            p => p.id.includes(botNumber) && (p.admin === 'admin' || p.admin === 'superadmin')
+        );
 
         if (!isAdmin) {
             return sock.sendMessage(chatId, {
@@ -30,7 +38,7 @@ module.exports = async (sock, chatId, message) => {
             }, { quoted: message });
         }
 
-        // Get join requests
+        // ✅ Get pending join requests
         const requests = await sock.groupRequestParticipantsList(chatId);
 
         if (!requests || requests.length === 0) {
@@ -41,6 +49,7 @@ module.exports = async (sock, chatId, message) => {
 
         let approved = 0;
 
+        // ✅ Approve all users
         for (let user of requests) {
             await sock.groupRequestParticipantsUpdate(
                 chatId,
@@ -50,14 +59,14 @@ module.exports = async (sock, chatId, message) => {
             approved++;
         }
 
-        await sock.sendMessage(chatId, {
+        return sock.sendMessage(chatId, {
             text: `✅ Approved ${approved} pending requests.`
         }, { quoted: message });
 
     } catch (err) {
         console.error("APPROVEALL ERROR:", err);
 
-        await sock.sendMessage(chatId, {
+        return sock.sendMessage(chatId, {
             text: '❌ Failed to approve requests.'
         }, { quoted: message });
     }
