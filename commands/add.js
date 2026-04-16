@@ -1,59 +1,59 @@
-async function addCommand(sock, chatId, senderId, message, args) {
-    try {
-        // Must be group
-        if (!chatId.endsWith('@g.us')) {
-            return await sock.sendMessage(chatId, {
-                text: "❌ This command can only be used in groups."
-            }, { quoted: message });
-        }
+import { normalizeJID } from "../../../functions/lidUtils.js";
 
-        // Get group metadata
-        const metadata = await sock.groupMetadata(chatId);
+const handler = async (sock, msg, from, args, msgInfoObj) => {
+	const { evv, groupAdmins, sendMessageWTyping, botNumber } = msgInfoObj;
 
-        // Check bot admin
-        const botId = sock.user.id;
-        const botIsAdmin = metadata.participants.some(
-            p => p.id === botId && (p.admin === 'admin' || p.admin === 'superadmin')
-        );
+	if (!groupAdmins.includes(botNumber[0]) && !groupAdmins.includes(botNumber[1])) {
+		return sendMessageWTyping(from, { text: "❎ Bot needs to be admin to add members." }, { quoted: msg });
+	}
+	if (!evv && !msg.message.extendedTextMessage && !args[0]) {
+		return sendMessageWTyping(
+			from,
+			{ text: "❎ Provide a number or reply to a member's message." },
+			{ quoted: msg }
+		);
+	}
 
-        if (!botIsAdmin) {
-            return await sock.sendMessage(chatId, {
-                text: "❌ I need to be admin to add members."
-            }, { quoted: message });
-        }
+	let participant = msg.message.extendedTextMessage
+		? msg.message.extendedTextMessage.contextInfo.participant
+		: evv.split(" ").join("");
+	if (participant.startsWith("@")) {
+		return sendMessageWTyping(
+			from,
+			{ text: "Don't tag or mentions, provide the number in text." },
+			{ quoted: msg }
+		);
+	}
 
-        // Get mentioned users
-        let users = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
+	// Use normalizeJID for LID/PN support
+	participant = await normalizeJID(sock, participant);
 
-        // If no mention, use number input
-        if (users.length === 0 && args.length > 0) {
-            let number = args[0].replace(/[^0-9]/g, '');
-            if (!number.endsWith('@s.whatsapp.net')) {
-                number = number + '@s.whatsapp.net';
-            }
-            users.push(number);
-        }
+	if (participant.startsWith("+")) {
+		participant = participant.split("+")[1];
+	}
 
-        if (users.length === 0) {
-            return await sock.sendMessage(chatId, {
-                text: "❌ Tag or enter number.\nExample:\n.add 2547XXXXXXXX\nor reply to user"
-            }, { quoted: message });
-        }
+	try {
+		const res = await sock.groupParticipantsUpdate(from, [participant], "add");
+		const status = res[0].status;
+		const statusMessages = {
+			400: "❎ Invalid number, include country code.",
+			403: "❎ Number has privacy setting on adding to group.",
+			408: "❎ Number has left the group recently.",
+			409: "❎ Number is already in group.",
+			500: "❎ Group is full.",
+			200: "✅ Number added to group.",
+		};
+		const text = statusMessages[status] || "❎ An error has occurred. Try again later.";
+		sendMessageWTyping(from, { text: text }, { quoted: msg });
+	} catch (error) {
+		sendMessageWTyping(from, { text: error.toString() }, { quoted: msg });
+		console.error(error);
+	}
+};
 
-        // Add users
-        await sock.groupParticipantsUpdate(chatId, users, "add");
-
-        await sock.sendMessage(chatId, {
-            text: `✅ Added ${users.length} member(s) successfully.`
-        }, { quoted: message });
-
-    } catch (err) {
-        console.log("Add Error:", err);
-
-        await sock.sendMessage(chatId, {
-            text: "❌ Failed to add member. They might have privacy settings."
-        }, { quoted: message });
-    }
-}
-
-module.exports = addCommand;
+export default () => ({
+	cmd: ["add"],
+	desc: "Add a member to group.",
+	usage: "add number | reply",
+	handler,
+});
