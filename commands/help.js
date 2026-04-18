@@ -138,6 +138,24 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
+   *𝗦𝗣𝗢𝗥𝗧𝗦 𝗖𝗢𝗠𝗠𝗔𝗡𝗗*:
+║ ✦.sportsCategories 
+║ ✦.stream
+║ ✦.allmatches 
+║ ✦.livematches 
+║ ✦.
+║ ✦.
+║ ✦.
+║ ✦.
+║ ✦.
+║ ✦.
+║ ✦.
+║ ✦.
+║ ✦.
+║ ✦.
+╚═══════════════════╝
+
+╔═══════════════════╗
    *𝗖𝗛𝗔𝗧 𝗔𝗜 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.gpt 
 ║ ✦.gpt4o 
