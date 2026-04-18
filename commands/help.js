@@ -367,6 +367,12 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.ytmp4 
 ║ ✦.ytvideo
 ║ ✦.ytmp3
+║ ✦.gdrivedl
+║ ✦.pinterestv3
+║ ✦.mediafire 
+║ ✦.twitterdlv2 
+║ ✦.gitclone 
+║ ✦.snackdl
 ╚═══════════════════╝
 
 ╔═══════════════════╗
