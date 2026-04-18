@@ -87,6 +87,10 @@ const enhance = require('./commands/enhancer');
 const dns = require('./commands/dns');
 const canvas = require('./commands/canvas');
 const songgen = require('./commands/songgen');
+const liveMatches = require('./commands/livematches');
+const allMatches = require('./commands/allmatches');
+const stream = require('./commands/stream');
+const sportsCategories = require('./commands/sportscategories');
 const clothes = require('./commands/clothes');
 const friendshipCommand = require('./commands/friendship');
 const loveCommand = require('./commands/love');
@@ -527,6 +531,21 @@ if (isGroup && antiforeignData[chatId]) {
     break;
                 case userMessage.startsWith('.antiforeign'):
     await antiforeignCommand(sock, chatId, senderId, message, userMessage.split(' ').slice(1));
+    break;
+                case userMessage.startsWith('.live'):
+    await liveMatches(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.allmatches'):
+    await allMatches(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.stream'):
+    await stream(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage === '.categories':
+    await sportsCategories(sock, chatId, message);
     break;
                 case userMessage.startsWith('.define'):
     await defineCommand(sock, chatId, message, userMessage.split(' ').slice(1));
