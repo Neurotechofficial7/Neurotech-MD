@@ -139,15 +139,15 @@ async function helpCommand(sock, chatId, message) {
 
 ╔═══════════════════╗
    *𝗦𝗣𝗢𝗥𝗧𝗦 𝗖𝗢𝗠𝗠𝗔𝗡𝗗*:
-║ ✦.sportsCategories 
+║ ✦.sportscategories 
 ║ ✦.stream
 ║ ✦.allmatches 
 ║ ✦.livematches 
-║ ✦.
-║ ✦.
-║ ✦.
-║ ✦.
-║ ✦.
+║ ✦.footballstream
+║ ✦.basketballstream
+║ ✦.allstream
+║ ✦.streamleagues 
+║ ✦.basketlive
 ║ ✦.
 ║ ✦.
 ║ ✦.
