@@ -71,6 +71,7 @@ const encryptv3 = require('./commands/encryptv3');
 const { promoteCommand } = require('./commands/promote');
 const bibleCommand = require('./commands/bible');
 const { demoteCommand } = require('./commands/demote');
+const streaming = require('./commands/streaming');
 const nekoCommand = require('./commands/neko');
 const antiforeignCommand = require('./commands/antiforeign');
 const tempmailv2inbox = require('./commands/tempmailv2inbox');
@@ -525,6 +526,25 @@ if (isGroup && antiforeignData[chatId]) {
                 case userMessage.startsWith('.autostatusdownload'):
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
+    break;
+                case userMessage === '.footballstream':
+    await streaming.footballStreaming(sock, chatId, message);
+    break;
+
+case userMessage === '.basketstream':
+    await streaming.basketballStreaming(sock, chatId, message);
+    break;
+
+case userMessage === '.allstream':
+    await streaming.allStreaming(sock, chatId, message);
+    break;
+
+case userMessage === '.streamleagues':
+    await streaming.streamingLeagues(sock, chatId, message);
+    break;
+
+case userMessage === '.basketlive':
+    await streaming.basketballLivescore(sock, chatId, message);
     break;
                 case userMessage.startsWith('.block'):
     await require('./commands/block')(sock, chatId, message);
