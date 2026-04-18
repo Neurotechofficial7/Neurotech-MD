@@ -57,6 +57,7 @@ const web2zip = require('./commands/web2zip');
 const inviteCommand = require('./commands/invite');
 const createqr = require('./commands/createqr');
 const defineCommand = require('./commands/define');
+const blockCommand = require('./commands/block');
 const chordCommand = require('./commands/chord');
 const npmCommand = require('./commands/npm');
 const hearthisCommand = require('./commands/hearthis');
