@@ -75,6 +75,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.add
 ║ ✦.antigroupmention 
 ║ ✦.invite 
+║ ✦.antiforeign 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
