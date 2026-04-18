@@ -1,73 +1,60 @@
-module.exports = async (sock, chatId, message) => {
-    try {
-        const isGroup = chatId.endsWith('@g.us');
+const isAdmin = require('../lib/isAdmin');
 
-        if (!isGroup) {
-            return sock.sendMessage(chatId, {
-                text: '❌ This command works only in groups.'
-            }, { quoted: message });
-        }
+async function approveAll(sock, chatId, senderId, message) {
+    const isOwner = message.key.fromMe;
 
-        // Get group metadata
-        const metadata = await sock.groupMetadata(chatId);
-        const participants = metadata.participants;
+    const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
 
-        const sender = message.key.participant || message.key.remoteJid;
-
-        // ✅ Check if sender is admin
-        const isAdmin = participants.some(
-            p => p.id === sender && (p.admin === 'admin' || p.admin === 'superadmin')
-        );
-
-        // ✅ FIXED bot admin detection (works for all Baileys formats)
-        const botNumber = sock.user.id.split(':')[0];
-
-        const isBotAdmin = participants.some(
-            p => p.id.includes(botNumber) && (p.admin === 'admin' || p.admin === 'superadmin')
-        );
-
-        if (!isAdmin) {
-            return sock.sendMessage(chatId, {
-                text: '🚫 Admin only command.'
-            }, { quoted: message });
-        }
-
+    // Admin check
+    if (!isOwner) {
         if (!isBotAdmin) {
-            return sock.sendMessage(chatId, {
-                text: '❌ Bot must be admin to approve requests.'
+            await sock.sendMessage(chatId, {
+                text: 'Please make the bot an admin first.'
             }, { quoted: message });
+            return;
         }
 
-        // ✅ Get pending join requests
-        const requests = await sock.groupRequestParticipantsList(chatId);
+        if (!isSenderAdmin) {
+            await sock.sendMessage(chatId, {
+                text: 'Only group admins can approve join requests.'
+            }, { quoted: message });
+            return;
+        }
+    }
+
+    try {
+        const metadata = await sock.groupMetadata(chatId);
+
+        const requests = metadata?.joinRequests || metadata?.participantsRequests || [];
 
         if (!requests || requests.length === 0) {
-            return sock.sendMessage(chatId, {
-                text: '❌ No pending join requests.'
+            await sock.sendMessage(chatId, {
+                text: 'No pending join requests found.'
             }, { quoted: message });
+            return;
         }
 
-        let approved = 0;
+        const usersToApprove = requests.map(r => r.jid || r.id || r.participant);
 
-        // ✅ Approve all users
-        for (let user of requests) {
-            await sock.groupRequestParticipantsUpdate(
-                chatId,
-                [user.jid],
-                "approve"
-            );
-            approved++;
-        }
+        await sock.groupRequestParticipantsUpdate(
+            chatId,
+            usersToApprove,
+            "approve"
+        );
 
-        return sock.sendMessage(chatId, {
-            text: `✅ Approved ${approved} pending requests.`
+        const mentions = usersToApprove.map(j => `@${j.split('@')[0]}`);
+
+        await sock.sendMessage(chatId, {
+            text: `✅ Approved all requests:\n\n${mentions.join('\n')}`,
+            mentions: usersToApprove
         }, { quoted: message });
 
     } catch (err) {
-        console.error("APPROVEALL ERROR:", err);
-
-        return sock.sendMessage(chatId, {
-            text: '❌ Failed to approve requests.'
+        console.error('approveall error:', err);
+        await sock.sendMessage(chatId, {
+            text: 'Failed to approve requests!'
         }, { quoted: message });
     }
-};
+}
+
+module.exports = approveAll;
