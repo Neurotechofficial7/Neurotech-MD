@@ -254,6 +254,7 @@ async function helpCommand(sock, chatId, message) {
    ║ ✦.dbase
    ║ ✦.ssphone
    ║ ✦.encryptv3
+   ║ ✦.checkapikey
 ╚═══════════════════╝
 
 ╔═══════════════════╗
