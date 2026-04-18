@@ -148,11 +148,16 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.allstream
 ║ ✦.streamleagues 
 ║ ✦.basketlive
-║ ✦.
-║ ✦.
-║ ✦.
-║ ✦.
-║ ✦.
+║ ✦.livescore2 
+║ ✦.predictions
+║ ✦.news
+║ ✦.player
+║ ✦.team
+║ ✦.eplstandings
+║ ✦.eplscores
+║ ✦.eplmatches
+║ ✦.laliga
+║ ✦.bundesliga
 ╚═══════════════════╝
 
 ╔═══════════════════╗
