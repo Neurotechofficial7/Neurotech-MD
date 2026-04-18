@@ -94,7 +94,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.autoread 
 ║ ✦.anticall 
 ║ ✦.pmblocker 
-║ ✦.pmblocker 
+║ ✦.block
 ║ ✦.setmention 
 ║ ✦.mention 
 ║ ✦.autostatusdownload 
