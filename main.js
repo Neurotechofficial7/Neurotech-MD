@@ -589,6 +589,22 @@ case userMessage === '.streamleagues':
 case userMessage === '.basketlive':
     await streaming.basketballLivescore(sock, chatId, message);
     break;
+                case userMessage.startsWith('.graffiti_text'):
+case userMessage.startsWith('.number-plate'):
+case userMessage.startsWith('.typewriter'):
+case userMessage.startsWith('.led-road-sign'):
+case userMessage.startsWith('.arrow-signs'):
+case userMessage.startsWith('.neon-writing'):
+case userMessage.startsWith('.beach-sign'):
+case userMessage.startsWith('.christmas-writing'): {
+    const parts = userMessage.split(' ');
+    const command = parts[0].slice(1);
+    const args = parts.slice(1);
+
+    const photofunia = require('./commands/photofunia');
+    await photofunia(sock, chatId, message, args, command);
+}
+break;
                 case userMessage === '.livescore2':
     await football.livescore2(sock, chatId, message);
     break;
