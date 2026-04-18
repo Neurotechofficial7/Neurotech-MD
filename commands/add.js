@@ -1,104 +1,87 @@
-const isOwnerOrSudo = require('../lib/isOwner');
+const isAdmin = require('../lib/isAdmin');
 
-module.exports = async (sock, chatId, message, args) => {
-    try {
-        // ✅ Must be group
-        if (!chatId.endsWith('@g.us')) {
-            return sock.sendMessage(chatId, {
-                text: '❌ This command works only in groups.'
-            }, { quoted: message });
-        }
+async function addCommand(sock, chatId, senderId, mentionedJids, message) {
+    const isOwner = message.key.fromMe;
 
-        const senderId = message.key.participant || message.key.remoteJid;
-
-        // ✅ Owner / Sudo check
-        const isAllowed = await isOwnerOrSudo(senderId, sock, chatId);
-
-        if (!isAllowed) {
-            return sock.sendMessage(chatId, {
-                text: '🚫 Only owner or sudo can use this command.'
-            }, { quoted: message });
-        }
-
-        // ✅ Get group data
-        const metadata = await sock.groupMetadata(chatId);
-        const participants = metadata.participants;
-
-        // ✅ FIXED BOT ADMIN CHECK
-        const botId = sock.user.id.split(':')[0] + '@s.whatsapp.net';
-
-        const bot = participants.find(p =>
-            p.id === botId || p.id.startsWith(botId.split('@')[0])
-        );
-
-        const isBotAdmin = bot && (bot.admin === 'admin' || bot.admin === 'superadmin');
-
-        // 🔍 DEBUG (you can remove later)
-        console.log("BOT ID:", sock.user.id);
-        console.log("BOT FOUND:", bot);
-        console.log("IS BOT ADMIN:", isBotAdmin);
+    // ✅ SAME ADMIN CHECK AS KICK
+    if (!isOwner) {
+        const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
 
         if (!isBotAdmin) {
-            return sock.sendMessage(chatId, {
-                text: '❎ Bot is not admin in this group.'
+            await sock.sendMessage(chatId, {
+                text: 'Please make the bot an admin first.'
             }, { quoted: message });
+            return;
         }
 
-        // ✅ Get number (reply or args)
-        let number;
-
-        if (message.message?.extendedTextMessage?.contextInfo?.participant) {
-            number = message.message.extendedTextMessage.contextInfo.participant;
-        } else if (args[0]) {
-            number = args[0];
-        } else {
-            return sock.sendMessage(chatId, {
-                text: '❎ Provide a number or reply to a user.'
+        if (!isSenderAdmin) {
+            await sock.sendMessage(chatId, {
+                text: 'Only group admins can use the add command.'
             }, { quoted: message });
+            return;
         }
-
-        // ❌ prevent tagging
-        if (number.startsWith('@')) {
-            return sock.sendMessage(chatId, {
-                text: "❎ Don't tag, provide number directly."
-            }, { quoted: message });
-        }
-
-        // ✅ Clean + format
-        number = number.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
-
-        // ✅ Try adding
-        const res = await sock.groupParticipantsUpdate(chatId, [number], "add");
-        const status = res?.[0]?.status;
-
-        const statusMessages = {
-            200: "✅ User added successfully.",
-            400: "❎ Invalid number.",
-            403: "❎ User privacy blocks adding.",
-            408: "❎ User left recently.",
-            409: "❎ Already in group.",
-            500: "❎ Group is full."
-        };
-
-        if (status === 200) {
-            return sock.sendMessage(chatId, {
-                text: statusMessages[200]
-            }, { quoted: message });
-        }
-
-        // ❌ fallback → invite link
-        const inviteCode = await sock.groupInviteCode(chatId);
-        const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
-
-        return sock.sendMessage(chatId, {
-            text: `${statusMessages[status] || '❌ Failed to add user.'}\n\n📩 Invite link:\n${inviteLink}`
-        }, { quoted: message });
-
-    } catch (err) {
-        console.error("ADD ERROR:", err);
-
-        return sock.sendMessage(chatId, {
-            text: '❌ ' + err.message
-        }, { quoted: message });
     }
-};
+
+    let usersToAdd = [];
+
+    // ✅ Mention
+    if (mentionedJids && mentionedJids.length > 0) {
+        usersToAdd = mentionedJids;
+    }
+    // ✅ Reply
+    else if (message.message?.extendedTextMessage?.contextInfo?.participant) {
+        usersToAdd = [message.message.extendedTextMessage.contextInfo.participant];
+    }
+
+    // ❌ No input
+    if (usersToAdd.length === 0) {
+        await sock.sendMessage(chatId, {
+            text: 'Please mention the user or reply to their message to add!'
+        }, { quoted: message });
+        return;
+    }
+
+    try {
+        // ✅ ADD USERS
+        const res = await sock.groupParticipantsUpdate(chatId, usersToAdd, "add");
+
+        let successUsers = [];
+        let failedUsers = [];
+
+        usersToAdd.forEach((jid, i) => {
+            if (res[i]?.status === 200) {
+                successUsers.push(jid);
+            } else {
+                failedUsers.push(jid);
+            }
+        });
+
+        // ✅ SUCCESS MESSAGE
+        if (successUsers.length > 0) {
+            await sock.sendMessage(chatId, {
+                text: `✅ Added: ${successUsers.map(u => '@' + u.split('@')[0]).join(', ')}`,
+                mentions: successUsers
+            });
+        }
+
+        // ❌ FAILED → SEND INVITE LINK
+        if (failedUsers.length > 0) {
+            const inviteCode = await sock.groupInviteCode(chatId);
+            const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
+
+            await sock.sendMessage(chatId, {
+                text: `❌ Could not add:\n${failedUsers.map(u => '@' + u.split('@')[0]).join(', ')}\n\n📩 Invite them using:\n${inviteLink}`,
+                mentions: failedUsers
+            });
+        }
+
+    } catch (error) {
+        console.error('Error in add command:', error);
+
+        await sock.sendMessage(chatId, {
+            text: 'Failed to add user(s)!'
+        });
+    }
+}
+
+module.exports = addCommand;
