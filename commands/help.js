@@ -171,11 +171,10 @@ async function helpCommand(sock, chatId, message) {
    ║ ✦.soundcloud 
    ║ ✦.wikimedia 
    ║ ✦.shazam 
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
-   ║ ✦.
+   ║ ✦.npm
+   ║ ✦.hearthis
+   ║ ✦.chord
+   ║ ✦.defin
 ╚═══════════════════╝
 
 ╔═══════════════════╗
