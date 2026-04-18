@@ -1,6 +1,6 @@
 const isAdmin = require('../lib/isAdmin');
 
-async function addCommand(sock, chatId, senderId, mentionedJids, message) {
+async function addCommand(sock, chatId, senderId, mentionedJids, message, args) {
     const isOwner = message.key.fromMe;
 
     // ✅ SAME ADMIN CHECK AS KICK
@@ -24,25 +24,31 @@ async function addCommand(sock, chatId, senderId, mentionedJids, message) {
 
     let usersToAdd = [];
 
-    // ✅ Mention
+    // ✅ 1. Mention
     if (mentionedJids && mentionedJids.length > 0) {
         usersToAdd = mentionedJids;
     }
-    // ✅ Reply
+
+    // ✅ 2. Reply
     else if (message.message?.extendedTextMessage?.contextInfo?.participant) {
         usersToAdd = [message.message.extendedTextMessage.contextInfo.participant];
+    }
+
+    // ✅ 3. Number input (FIXED 🔥)
+    else if (args[0]) {
+        let number = args[0].replace(/[^0-9]/g, '');
+        usersToAdd = [number + '@s.whatsapp.net'];
     }
 
     // ❌ No input
     if (usersToAdd.length === 0) {
         await sock.sendMessage(chatId, {
-            text: 'Please mention the user or reply to their message to add!'
+            text: '❌ Use:\n.add @user\nOR reply\nOR .add 2547xxxxxxx'
         }, { quoted: message });
         return;
     }
 
     try {
-        // ✅ ADD USERS
         const res = await sock.groupParticipantsUpdate(chatId, usersToAdd, "add");
 
         let successUsers = [];
@@ -56,7 +62,6 @@ async function addCommand(sock, chatId, senderId, mentionedJids, message) {
             }
         });
 
-        // ✅ SUCCESS MESSAGE
         if (successUsers.length > 0) {
             await sock.sendMessage(chatId, {
                 text: `✅ Added: ${successUsers.map(u => '@' + u.split('@')[0]).join(', ')}`,
@@ -64,13 +69,12 @@ async function addCommand(sock, chatId, senderId, mentionedJids, message) {
             });
         }
 
-        // ❌ FAILED → SEND INVITE LINK
         if (failedUsers.length > 0) {
             const inviteCode = await sock.groupInviteCode(chatId);
             const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
 
             await sock.sendMessage(chatId, {
-                text: `❌ Could not add:\n${failedUsers.map(u => '@' + u.split('@')[0]).join(', ')}\n\n📩 Invite them using:\n${inviteLink}`,
+                text: `❌ Could not add:\n${failedUsers.map(u => '@' + u.split('@')[0]).join(', ')}\n\n📩 Invite link:\n${inviteLink}`,
                 mentions: failedUsers
             });
         }
