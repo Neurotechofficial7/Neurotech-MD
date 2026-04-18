@@ -566,10 +566,6 @@ break;
                 case userMessage === '.leave':
     await leaveCommand(sock, chatId, message);
     break;
-                case userMessage.startsWith('.add'):
-    const addArgs = userMessage.split(' ').slice(1);
-    await addCommand(sock, chatId, message, addArgs);
-    break;
                 case userMessage === '.invite':
     await inviteCommand(sock, chatId, message);
     break;
@@ -891,10 +887,13 @@ case userMessage === '.spooky':
             case userMessage.startsWith('.delete') || userMessage.startsWith('.del'):
                 await deleteCommand(sock, chatId, message, senderId);
                 break;
-                case userMessage.startsWith('.add'):
-    const newEmailArgs = userMessage.split(' ').slice(1);
-    await addCommand(sock, chatId, senderId, message, args);
-    break;
+                case userMessage.startsWith('.add'): {
+    const mentionedJids = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
+    const senderId = message.key.participant || message.key.remoteJid;
+
+    await addCommand(sock, chatId, senderId, mentionedJids, message);
+}
+break;
             case userMessage.startsWith('.attp'):
                 await attpCommand(sock, chatId, message);
                 break;
