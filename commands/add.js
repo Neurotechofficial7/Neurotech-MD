@@ -83,7 +83,7 @@ async function addCommand(sock, chatId, senderId, mentionedJids, message, args) 
                         reason = '🚫 Group is full';
                         break;
                     default:
-                        reason = '❌ Failed to add';
+                        reason = '✅ Successfully added';
                 }
 
                 resultsText += `${userTag} → ${reason}\n`;
