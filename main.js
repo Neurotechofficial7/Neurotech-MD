@@ -864,8 +864,8 @@ case userMessage === '.spooky':
                 const mentionedJidListWarnings = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
                 await warningsCommand(sock, chatId, mentionedJidListWarnings);
                 break;
-            case userMessage === '.rejectall':
-    await rejectAllCommand(sock, chatId, message);
+                case userMessage === '.rejectall':
+    await rejectAllCommand(sock, chatId, senderId, message);
     break;
             case userMessage.startsWith('.warn'):
                 const mentionedJidListWarn = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
