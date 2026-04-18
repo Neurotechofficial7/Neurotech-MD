@@ -71,6 +71,7 @@ const { promoteCommand } = require('./commands/promote');
 const bibleCommand = require('./commands/bible');
 const { demoteCommand } = require('./commands/demote');
 const nekoCommand = require('./commands/neko');
+const antiforeignCommand = require('./commands/antiforeign');
 const tempmailv2inbox = require('./commands/tempmailv2inbox');
 const waifuCommand = require('./commands/waifu');
 const vocalv2 = require('./commands/vocalv2');
@@ -288,6 +289,31 @@ await handleAutoStatusDownload(sock, message);
             }
         }
 
+        const antiforeignData = require('./data/antiforeign.json');
+
+const allowedCodes = ['254', '255', '256', '257', '250'];
+
+function isForeign(jid) {
+    const num = jid.split('@')[0];
+    return !allowedCodes.some(code => num.startsWith(code));
+}
+
+// 🔥 ANTI-FOREIGN CHECK (RUNS EARLY)
+if (isGroup && antiforeignData[chatId]) {
+    if (isForeign(senderId)) {
+        try {
+            await sock.sendMessage(chatId, {
+                text: `❌ Anti-foreign active!\nYou are not allowed in this group.`
+            });
+
+            await sock.groupParticipantsUpdate(chatId, [senderId], 'remove');
+        } catch (e) {
+            console.log('Antiforeign error:', e);
+        }
+
+        return; // stop everything
+    }
+}
         const userMessage = (
             message.message?.conversation?.trim() ||
             message.message?.extendedTextMessage?.text?.trim() ||
@@ -494,6 +520,9 @@ await handleAutoStatusDownload(sock, message);
                 case userMessage.startsWith('.autostatusdownload'):
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
+    break;
+                case userMessage.startsWith('.antiforeign'):
+    await antiforeignCommand(sock, chatId, senderId, message, userMessage.split(' ').slice(1));
     break;
                 case userMessage.startsWith('.define'):
     await defineCommand(sock, chatId, message, userMessage.split(' ').slice(1));
