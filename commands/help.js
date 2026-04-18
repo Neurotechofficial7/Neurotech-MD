@@ -153,6 +153,17 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
+   *𝗚𝗔𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+║ ✦.answer 
+║ ✦.dare
+║ ✦.guess 
+║ ✦.hangman 
+║ ✦.trivia
+║ ✦.truth 
+║ ✦.tictactoe 
+╚═══════════════════╝
+
+╔═══════════════════╗
    *𝗚𝗜𝗧𝗛𝗨𝗕 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.git
 ║ ✦.github
@@ -343,6 +354,13 @@ async function helpCommand(sock, chatId, message) {
    *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗠𝗔𝗜𝗟*:
 ║ ✦.checkemail
 ║ ✦.tempemail
+╚═══════════════════╝
+
+╔═══════════════════╗
+   *𝗧𝗘𝗠𝗣𝗢𝗥𝗔𝗥𝗬 𝗠𝗔𝗜𝗟V2*:
+║ ✦.tempmailv2 
+║ ✦.tempmailv2inbox 
+║ ✦.tempmailv2-message 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
