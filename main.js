@@ -56,6 +56,7 @@ const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
 const inviteCommand = require('./commands/invite');
 const createqr = require('./commands/createqr');
+const football = require('./commands/football');
 const defineCommand = require('./commands/define');
 const blockCommand = require('./commands/block');
 const chordCommand = require('./commands/chord');
@@ -545,6 +546,45 @@ case userMessage === '.streamleagues':
 
 case userMessage === '.basketlive':
     await streaming.basketballLivescore(sock, chatId, message);
+    break;
+                case userMessage === '.livescore2':
+    await football.livescore2(sock, chatId, message);
+    break;
+
+case userMessage === '.predictions':
+    await football.predictions(sock, chatId, message);
+    break;
+
+case userMessage === '.news':
+    await football.news(sock, chatId, message);
+    break;
+
+case userMessage.startsWith('.player'):
+    await football.playerSearch(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.team'):
+    await football.teamSearch(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage === '.eplstandings':
+    await football.eplStandings(sock, chatId, message);
+    break;
+
+case userMessage === '.eplscorers':
+    await football.eplScorers(sock, chatId, message);
+    break;
+
+case userMessage === '.eplmatches':
+    await football.eplMatches(sock, chatId, message);
+    break;
+
+case userMessage === '.laliga':
+    await football.laliga(sock, chatId, message);
+    break;
+
+case userMessage === '.bundesliga':
+    await football.bundesliga(sock, chatId, message);
     break;
                 case userMessage.startsWith('.block'):
     await require('./commands/block')(sock, chatId, message);
