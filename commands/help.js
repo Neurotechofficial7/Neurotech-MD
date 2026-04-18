@@ -170,6 +170,18 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
+    *𝗣𝗛𝗢𝗧𝗢𝗙𝗨𝗡𝗜𝗔 𝗧𝗘𝗫𝗧*:
+║ ✦.graffiti_text text signature
+║ ✦.number-plate text
+║ ✦.typewriter text
+║ ✦.led-road-sign text sign
+║ ✦.arrow-signs text1 text2
+║ ✦.neon-writing text1 text2
+║ ✦.beach-sign text
+║ ✦.christmas-writing text
+╚═══════════════════╝
+
+╔═══════════════════╗
    *𝗚𝗔𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.tictactoe 
 ║ ✦.hangman
