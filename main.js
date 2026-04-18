@@ -59,6 +59,8 @@ const createqr = require('./commands/createqr');
 const football = require('./commands/football');
 const defineCommand = require('./commands/define');
 const blockCommand = require('./commands/block');
+const ytmp3Command = require('./commands/ytmp3');
+const ytvideoCommand = require('./commands/ytvideo');
 const chordCommand = require('./commands/chord');
 const npmCommand = require('./commands/npm');
 const hearthisCommand = require('./commands/hearthis');
@@ -736,6 +738,17 @@ case userMessage.startsWith('.tiktokstalk'): {
     await sock.sendMessage(chatId, {
         text: `🎵 *TIKTOK STALK*\n\n${JSON.stringify(data.result, null, 2)}`
     }, { quoted: message });
+}
+break;
+                case userMessage.startsWith('.ytmp3'): {
+    const args = userMessage.split(' ').slice(1);
+    await ytmp3Command(sock, chatId, message, args);
+}
+break;
+
+case userMessage.startsWith('.ytvideo'): {
+    const args = userMessage.split(' ').slice(1);
+    await ytvideoCommand(sock, chatId, message, args);
 }
 break;
                 case userMessage.startsWith('.antiforeign'):
