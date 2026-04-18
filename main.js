@@ -521,6 +521,9 @@ if (isGroup && antiforeignData[chatId]) {
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage.startsWith('.block'):
+    await require('./commands/block')(sock, chatId, message);
+    break;
                 case userMessage.startsWith('.antiforeign'):
     await antiforeignCommand(sock, chatId, senderId, message, userMessage.split(' ').slice(1));
     break;
