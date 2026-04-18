@@ -75,6 +75,7 @@ const tempmailv2inbox = require('./commands/tempmailv2inbox');
 const waifuCommand = require('./commands/waifu');
 const vocalv2 = require('./commands/vocalv2');
 const konachanCommand = require('./commands/konachan');
+const leaveCommand = require('./commands/leave');
 const randomAnimeCommand = require('./commands/randomanime');
 const checkEmailCommand = require('./commands/checkemail');
 const gratitudeCommand = require('./commands/gratitude');
@@ -562,6 +563,9 @@ case userMessage.startsWith('.wallpaper'): {
     await tempmailv2Message.execute(sock, message, args);
 }
 break;
+                case userMessage === '.leave':
+    await leaveCommand(sock, chatId, message);
+    break;
                 case userMessage.startsWith('.add'):
     const addArgs = userMessage.split(' ').slice(1);
     await addCommand(sock, chatId, message, addArgs);
