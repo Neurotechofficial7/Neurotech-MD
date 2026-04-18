@@ -7,17 +7,20 @@ module.exports = async (sock, chatId, message) => {
         const res = await axios.get(url);
         const data = res.data;
 
-        if (!data || !data.status) {
+        if (!data) {
             return await sock.sendMessage(chatId, {
                 text: '❌ Failed to check API key.'
             }, { quoted: message });
         }
 
+        // Fix undefined message
+        const apiMessage = data.message || "No message provided";
+
         let msg = `🔑 *API KEY STATUS*\n\n`;
-        msg += `📌 Status: ${data.status}\n`;
+        msg += `📌 Status: ${data.status || 'N/A'}\n`;
         msg += `✅ Success: ${data.success}\n`;
-        msg += `👤 Creator: ${data.creator}\n`;
-        msg += `💬 Message: ${data.message}\n`;
+        msg += `👑 Owner: Neurotech\n`;
+        msg += `💬 Message: ${apiMessage}\n`;
 
         await sock.sendMessage(chatId, { text: msg }, { quoted: message });
 
