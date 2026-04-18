@@ -531,6 +531,19 @@ if (isGroup && antiforeignData[chatId]) {
                 case userMessage === '.checkapikey':
     await require('./commands/checkapikey')(sock, chatId, message);
     break;
+                case userMessage.startsWith('.tinyurl'):
+case userMessage.startsWith('.cleanuri'):
+case userMessage.startsWith('.vgd'):
+case userMessage.startsWith('.rebrandly'):
+case userMessage.startsWith('.vurl'):
+case userMessage.startsWith('.adfoc'):
+case userMessage.startsWith('.ssur'): {
+    const args = userMessage.split(' ').slice(1);
+    const command = userMessage.slice(1).split(' ')[0];
+
+    await require('./commands/shortener')(sock, chatId, message, args, command);
+}
+break;
                 case userMessage === '.footballstream':
     await streaming.footballStreaming(sock, chatId, message);
     break;
