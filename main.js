@@ -890,8 +890,9 @@ case userMessage === '.spooky':
                 case userMessage.startsWith('.add'): {
     const mentionedJids = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
     const senderId = message.key.participant || message.key.remoteJid;
+    const args = userMessage.split(' ').slice(1);
 
-    await addCommand(sock, chatId, senderId, mentionedJids, message);
+    await addCommand(sock, chatId, senderId, mentionedJids, message, args);
 }
 break;
             case userMessage.startsWith('.attp'):
