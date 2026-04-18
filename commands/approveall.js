@@ -5,7 +5,6 @@ async function approveAll(sock, chatId, senderId, message) {
 
     const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
 
-    // Admin check
     if (!isOwner) {
         if (!isBotAdmin) {
             await sock.sendMessage(chatId, {
@@ -23,18 +22,17 @@ async function approveAll(sock, chatId, senderId, message) {
     }
 
     try {
-        const metadata = await sock.groupMetadata(chatId);
-
-        const requests = metadata?.joinRequests || metadata?.participantsRequests || [];
+        // 🔥 SAME SOURCE AS REJECTALL (THIS FIXES IT)
+        const requests = await sock.groupRequestParticipantsList(chatId);
 
         if (!requests || requests.length === 0) {
             await sock.sendMessage(chatId, {
-                text: 'No pending join requests found.'
+                text: '❌ No pending join requests found.'
             }, { quoted: message });
             return;
         }
 
-        const usersToApprove = requests.map(r => r.jid || r.id || r.participant);
+        const usersToApprove = requests.map(r => r.jid);
 
         await sock.groupRequestParticipantsUpdate(
             chatId,
@@ -45,7 +43,7 @@ async function approveAll(sock, chatId, senderId, message) {
         const mentions = usersToApprove.map(j => `@${j.split('@')[0]}`);
 
         await sock.sendMessage(chatId, {
-            text: `✅ Approved all requests:\n\n${mentions.join('\n')}`,
+            text: `✅ Approved all join requests:\n\n${mentions.join('\n')}`,
             mentions: usersToApprove
         }, { quoted: message });
 
