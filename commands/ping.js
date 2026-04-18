@@ -12,7 +12,7 @@ async function pingCommand(sock, chatId, message) {
 
         // Edit message with result
         await sock.sendMessage(chatId, {
-            text: `🚀 *NEUROTECH-MD SPEED:* ${speed} ms`
+            text: `🚀 *SPEED:* ${speed} ms`
         }, { quoted: message });
 
     } catch (error) {
