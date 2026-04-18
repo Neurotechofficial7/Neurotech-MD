@@ -528,6 +528,32 @@ if (isGroup && antiforeignData[chatId]) {
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage.startsWith('.skydiver'):
+case userMessage.startsWith('.billboards-at-night'):
+case userMessage.startsWith('.underground-poster'):
+case userMessage.startsWith('.broadway-at-night'):
+case userMessage.startsWith('.country-house'):
+case userMessage.startsWith('.calendar'):
+case userMessage.startsWith('.smoke-flare'):
+case userMessage.startsWith('.mirror'):
+case userMessage.startsWith('.analogue-tv'):
+case userMessage.startsWith('.old-camera'):
+case userMessage.startsWith('.love-letter'):
+case userMessage.startsWith('.black-white-gallery'):
+case userMessage.startsWith('.drawing-photo'):
+case userMessage.startsWith('.photo_gallery'):
+case userMessage.startsWith('.streets_of_new_york'):
+case userMessage.startsWith('.reading_on_the_balcony'):
+case userMessage.startsWith('.crown'):
+case userMessage.startsWith('.frame_and_roses'): {
+    const parts = userMessage.split(' ');
+    const command = parts[0].slice(1);
+    const args = parts.slice(1);
+
+    const photofunia = require('./commands/photofunia');
+    await photofunia(sock, chatId, message, args, command);
+}
+break;
                 case userMessage === '.checkapikey':
     await require('./commands/checkapikey')(sock, chatId, message);
     break;
