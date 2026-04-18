@@ -122,3 +122,35 @@ async function run(sock, chatId, message, args, command) {
 }
 
 module.exports = run;
+
+case 'graffiti_text':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/graffiti_text?apikey=${API_KEY}&text=${encodeURIComponent(url)}&signature=${encodeURIComponent(url2 || url)}`;
+    break;
+
+case 'number-plate':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/number-plate?apikey=${API_KEY}&text=${encodeURIComponent(url)}`;
+    break;
+
+case 'typewriter':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/typewriter?apikey=${API_KEY}&text=${encodeURIComponent(url)}`;
+    break;
+
+case 'led-road-sign':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/led-road-sign?apikey=${API_KEY}&text=${encodeURIComponent(url)}&sign=${encodeURIComponent(url2 || url)}`;
+    break;
+
+case 'arrow-signs':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/arrow-signs?apikey=${API_KEY}&text1=${encodeURIComponent(url)}&text2=${encodeURIComponent(url2 || url)}`;
+    break;
+
+case 'neon-writing':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/neon-writing?apikey=${API_KEY}&text=${encodeURIComponent(url)}&text2=${encodeURIComponent(url2 || url)}`;
+    break;
+
+case 'beach-sign':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/beach-sign?apikey=${API_KEY}&text=${encodeURIComponent(url)}`;
+    break;
+
+case 'christmas-writing':
+    apiUrl = `https://api.giftedtech.co.ke/api/photofunia/christmas-writing?apikey=${API_KEY}&text=${encodeURIComponent(url)}`;
+    break;
