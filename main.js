@@ -54,6 +54,7 @@ const apkmirrorCommand = require('./commands/apkmirror');
 const wallpaperCommand = require('./commands/wallpaper');
 const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
+const inviteCommand = require('./commands/invite');
 const createqr = require('./commands/createqr');
 const defineCommand = require('./commands/define');
 const chordCommand = require('./commands/chord');
@@ -564,6 +565,9 @@ break;
                 case userMessage.startsWith('.add'):
     const addArgs = userMessage.split(' ').slice(1);
     await addCommand(sock, chatId, message, addArgs);
+    break;
+                case userMessage === '.invite':
+    await inviteCommand(sock, chatId, message);
     break;
                 case userMessage.startsWith('.bible'):
 {
