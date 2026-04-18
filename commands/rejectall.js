@@ -5,7 +5,6 @@ async function rejectAll(sock, chatId, senderId, message) {
 
     const { isSenderAdmin, isBotAdmin } = await isAdmin(sock, chatId, senderId);
 
-    // Admin check (same logic as kick command)
     if (!isOwner) {
         if (!isBotAdmin) {
             await sock.sendMessage(chatId, {
@@ -23,21 +22,17 @@ async function rejectAll(sock, chatId, senderId, message) {
     }
 
     try {
-        const metadata = await sock.groupMetadata(chatId);
-
-        const requests =
-            metadata?.joinRequests ||
-            metadata?.participantsRequests ||
-            [];
+        // 🔥 THIS is the correct way
+        const requests = await sock.groupRequestParticipantsList(chatId);
 
         if (!requests || requests.length === 0) {
             await sock.sendMessage(chatId, {
-                text: 'No pending join requests found.'
+                text: '❌ No pending join requests found.'
             }, { quoted: message });
             return;
         }
 
-        const usersToReject = requests.map(r => r.jid || r.id || r.participant);
+        const usersToReject = requests.map(r => r.jid);
 
         await sock.groupRequestParticipantsUpdate(
             chatId,
