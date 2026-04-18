@@ -51,6 +51,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.mute 
 ║ ✦.unmute
 ║ ✦.delete 
+║ ✦.leave 
 ║ ✦.kick 
 ║ ✦.warnings 
 ║ ✦.warn 
