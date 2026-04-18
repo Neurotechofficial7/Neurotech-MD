@@ -589,6 +589,97 @@ case userMessage === '.bundesliga':
                 case userMessage.startsWith('.block'):
     await require('./commands/block')(sock, chatId, message);
     break;
+                // =======================
+// 📌 STALK COMMANDS
+// =======================
+
+case userMessage.startsWith('.gitstalk'): {
+    const username = userMessage.split(' ')[1];
+    if (!username) return sock.sendMessage(chatId, { text: '❗ Usage: .gitstalk username' });
+
+    const data = await fetchAPI(`https://api.giftedtech.co.ke/api/stalk/gitstalk?apikey=gifted&username=${username}`);
+
+    if (!data) return sock.sendMessage(chatId, { text: '❌ Failed to fetch GitHub user.' });
+
+    await sock.sendMessage(chatId, {
+        text: `👤 *GITSTALK*\n\n${JSON.stringify(data.result, null, 2)}`
+    }, { quoted: message });
+}
+break;
+
+
+case userMessage.startsWith('.twitterstalk'): {
+    const username = userMessage.split(' ')[1];
+    if (!username) return sock.sendMessage(chatId, { text: '❗ Usage: .twitterstalk username' });
+
+    const data = await fetchAPI(`https://api.giftedtech.co.ke/api/stalk/twitterstalk?apikey=gifted&username=${username}`);
+
+    if (!data) return sock.sendMessage(chatId, { text: '❌ Failed to fetch Twitter user.' });
+
+    await sock.sendMessage(chatId, {
+        text: `🐦 *TWITTER STALK*\n\n${JSON.stringify(data.result, null, 2)}`
+    }, { quoted: message });
+}
+break;
+
+
+case userMessage.startsWith('.igstalk'): {
+    const username = userMessage.split(' ')[1];
+    if (!username) return sock.sendMessage(chatId, { text: '❗ Usage: .igstalk username' });
+
+    const data = await fetchAPI(`https://api.giftedtech.co.ke/api/stalk/igstalk?apikey=gifted&username=${username}`);
+
+    if (!data) return sock.sendMessage(chatId, { text: '❌ Failed to fetch Instagram user.' });
+
+    await sock.sendMessage(chatId, {
+        text: `📸 *IG STALK*\n\n${JSON.stringify(data.result, null, 2)}`
+    }, { quoted: message });
+}
+break;
+
+
+case userMessage.startsWith('.ipstalk'): {
+    const ip = userMessage.split(' ')[1];
+    if (!ip) return sock.sendMessage(chatId, { text: '❗ Usage: .ipstalk 8.8.8.8' });
+
+    const data = await fetchAPI(`https://api.giftedtech.co.ke/api/stalk/ipstalk?apikey=gifted&address=${ip}`);
+
+    if (!data) return sock.sendMessage(chatId, { text: '❌ Failed to fetch IP info.' });
+
+    await sock.sendMessage(chatId, {
+        text: `🌍 *IP STALK*\n\n${JSON.stringify(data.result, null, 2)}`
+    }, { quoted: message });
+}
+break;
+
+
+case userMessage.startsWith('.npmstalk'): {
+    const pkg = userMessage.split(' ')[1];
+    if (!pkg) return sock.sendMessage(chatId, { text: '❗ Usage: .npmstalk package-name' });
+
+    const data = await fetchAPI(`https://api.giftedtech.co.ke/api/stalk/npmstalk?apikey=gifted&packagename=${pkg}`);
+
+    if (!data) return sock.sendMessage(chatId, { text: '❌ Failed to fetch NPM package.' });
+
+    await sock.sendMessage(chatId, {
+        text: `📦 *NPM STALK*\n\n${JSON.stringify(data.result, null, 2)}`
+    }, { quoted: message });
+}
+break;
+
+case userMessage.startsWith('.tiktokstalk'): {
+    const username = userMessage.split(' ')[1];
+    if (!username) return sock.sendMessage(chatId, { text: '❗ Usage: .tiktokstalk username' });
+
+    const data = await fetchAPI(`https://api.giftedtech.co.ke/api/stalk/tiktokstalk?apikey=gifted&username=${username}`);
+
+    if (!data) return sock.sendMessage(chatId, { text: '❌ Failed to fetch TikTok user.' });
+
+    await sock.sendMessage(chatId, {
+        text: `🎵 *TIKTOK STALK*\n\n${JSON.stringify(data.result, null, 2)}`
+    }, { quoted: message });
+}
+break;
                 case userMessage.startsWith('.antiforeign'):
     await antiforeignCommand(sock, chatId, senderId, message, userMessage.split(' ').slice(1));
     break;
