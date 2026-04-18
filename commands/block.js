@@ -1,39 +1,51 @@
+const isOwnerOrSudo = require('../lib/isOwner');
+
+function toJid(num) {
+    if (!num) return null;
+    if (num.includes('@')) return num;
+    return num.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
+}
+
 module.exports = async (sock, chatId, message) => {
     try {
-        const sender = message.key.participant || message.key.remoteJid;
+        const senderId = message.key.participant || message.key.remoteJid;
 
-        // Only owner / sudo / bot itself
-        const isOwner = message.key.fromMe;
+        const mentions =
+            message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
 
-        if (!isOwner) {
+        const quoted =
+            message.message?.extendedTextMessage?.contextInfo?.participant;
+
+        const owner = await isOwnerOrSudo(senderId, sock, chatId);
+
+        if (!message.key.fromMe && !owner) {
             return await sock.sendMessage(chatId, {
-                text: "❌ Only the bot owner can use this command."
+                text: '❌ Only owner can use this command.'
             }, { quoted: message });
         }
 
-        // Get mentioned user OR replied user
-        const mentioned = message.message?.extendedTextMessage?.contextInfo?.mentionedJid || [];
-        const quoted = message.message?.extendedTextMessage?.contextInfo?.participant;
+        let target = mentions[0] || quoted || senderId;
 
-        const target = mentioned[0] || quoted;
+        target = toJid(target);
 
         if (!target) {
             return await sock.sendMessage(chatId, {
-                text: "❗ Usage: .block @user OR reply to a message"
+                text: '❌ No user found to block.'
             }, { quoted: message });
         }
 
-        await sock.updateBlockStatus(target, "block");
+        await sock.updateBlockStatus(target, 'block');
 
         await sock.sendMessage(chatId, {
-            text: `🚫 Successfully blocked user:\n@${target.split('@')[0]}`,
+            text: `🚫 Successfully blocked:\n@${target.split('@')[0]}`,
             mentions: [target]
         }, { quoted: message });
 
     } catch (err) {
-        console.log(err);
+        console.log('BLOCK ERROR:', err);
+
         await sock.sendMessage(chatId, {
-            text: "❌ Failed to block user."
-        }, { quoted: message });
+            text: '❌ Failed to block user (check console for error).'
+        });
     }
 };
