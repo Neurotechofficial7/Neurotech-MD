@@ -528,6 +528,9 @@ if (isGroup && antiforeignData[chatId]) {
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
     break;
+                case userMessage === '.checkapikey':
+    await require('./commands/checkapikey')(sock, chatId, message);
+    break;
                 case userMessage === '.footballstream':
     await streaming.footballStreaming(sock, chatId, message);
     break;
