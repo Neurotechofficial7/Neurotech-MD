@@ -120,6 +120,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.pickupline
 ║ ✦.roseday
 ║ ✦.shayari
+║ ✦.ship
 ║ ✦.simp
 ║ ✦.stupid
 ║ ✦.thankyou
@@ -203,6 +204,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.comrade
 ║ ✦.gay
 ║ ✦.glass
+║ ✦.heart 
 ║ ✦.horny
 ║ ✦.its-so-stupid
 ║ ✦.jail
