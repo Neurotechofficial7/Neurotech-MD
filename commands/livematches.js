@@ -4,7 +4,7 @@ module.exports = async (sock, chatId, message, args) => {
     try {
         const category = args[0] || "football";
 
-        const url = `https://api.giftedtech.co.ke/api/sports/live?apikey=gifted&category=${category}`;
+        const url = `676ljgIgnA7XWvluduIylBMzHM6JjHAATLC4142kr7p8s1CrwQp0jlZHu2Qx=${category}`;
 
         const res = await axios.get(url);
 
