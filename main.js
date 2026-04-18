@@ -60,6 +60,12 @@ const football = require('./commands/football');
 const defineCommand = require('./commands/define');
 const blockCommand = require('./commands/block');
 const ytmp3Command = require('./commands/ytmp3');
+const twitterdlv2 = require('./commands/twitterdlv2');
+const snackdl = require('./commands/snackdl');
+const gitclone = require('./commands/gitclone');
+const pinterestv3 = require('./commands/pinterestv3');
+const mediafire = require('./commands/mediafire');
+const gdrivedl = require('./commands/gdrivedl');
 const ytvideoCommand = require('./commands/ytvideo');
 const chordCommand = require('./commands/chord');
 const npmCommand = require('./commands/npm');
@@ -529,6 +535,29 @@ if (isGroup && antiforeignData[chatId]) {
                 case userMessage.startsWith('.autostatusdownload'):
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
+    break;
+                case userMessage.startsWith('.twitterdlv2'):
+    await twitterdlv2(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.snackdl'):
+    await snackdl(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.gitclone'):
+    await gitclone(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.pinterestv3'):
+    await pinterestv3(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.mediafire'):
+    await mediafire(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.gdrivedl'):
+    await gdrivedl(sock, chatId, message, userMessage.split(' ').slice(1));
     break;
                 case userMessage.startsWith('.skydiver'):
 case userMessage.startsWith('.billboards-at-night'):
