@@ -55,6 +55,10 @@ const wallpaperCommand = require('./commands/wallpaper');
 const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
 const createqr = require('./commands/createqr');
+const defineCommand = require('./commands/define');
+const chordCommand = require('./commands/chord');
+const npmCommand = require('./commands/npm');
+const hearthisCommand = require('./commands/hearthis');
 const googleCommand = require('./commands/google');
 const dictionaryCommand = require('./commands/dictionary');
 const readqr = require('./commands/readqr');
@@ -488,6 +492,21 @@ await handleAutoStatusDownload(sock, message);
                 case userMessage.startsWith('.autostatusdownload'):
     const dlArgs = userMessage.split(' ').slice(1);
     await autoStatusDownloadCommand(sock, chatId, message, dlArgs);
+    break;
+                case userMessage.startsWith('.define'):
+    await defineCommand(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.chord'):
+    await chordCommand(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.npm'):
+    await npmCommand(sock, chatId, message, userMessage.split(' ').slice(1));
+    break;
+
+case userMessage.startsWith('.hearthis'):
+    await hearthisCommand(sock, chatId, message, userMessage.split(' ').slice(1));
     break;
                 case userMessage.startsWith('.dictionary'):
 {
