@@ -1,3 +1,5 @@
+const isOwnerOrSudo = require('../lib/isOwner'); // adjust path if needed
+
 module.exports = async (sock, chatId, message, args) => {
     try {
         const isGroup = chatId.endsWith('@g.us');
@@ -8,28 +10,26 @@ module.exports = async (sock, chatId, message, args) => {
             }, { quoted: message });
         }
 
+        const senderId = message.key.participant || message.key.remoteJid;
+
+        // ✅ OWNER / SUDO CHECK
+        const isAllowed = await isOwnerOrSudo(senderId, sock, chatId);
+
+        if (!isAllowed) {
+            return sock.sendMessage(chatId, {
+                text: '🚫 Only owner or sudo can use this command.'
+            }, { quoted: message });
+        }
+
         // Get group metadata
         const metadata = await sock.groupMetadata(chatId);
         const participants = metadata.participants;
 
-        const sender = message.key.participant || message.key.remoteJid;
-
-        // ✅ Check if sender is admin
-        const isAdmin = participants.some(
-            p => p.id === sender && (p.admin === 'admin' || p.admin === 'superadmin')
-        );
-
-        // ✅ Check if bot is admin
+        // ✅ BOT ADMIN CHECK
         const botNumber = sock.user.id.split(':')[0];
         const isBotAdmin = participants.some(
             p => p.id.includes(botNumber) && (p.admin === 'admin' || p.admin === 'superadmin')
         );
-
-        if (!isAdmin) {
-            return sock.sendMessage(chatId, {
-                text: '🚫 Admin only command.'
-            }, { quoted: message });
-        }
 
         if (!isBotAdmin) {
             return sock.sendMessage(chatId, {
@@ -37,7 +37,7 @@ module.exports = async (sock, chatId, message, args) => {
             }, { quoted: message });
         }
 
-        // ✅ Get number
+        // ✅ GET NUMBER (reply or argument)
         let number;
 
         if (message.message?.extendedTextMessage?.contextInfo?.participant) {
@@ -57,10 +57,10 @@ module.exports = async (sock, chatId, message, args) => {
             }, { quoted: message });
         }
 
-        // ✅ Clean number
+        // ✅ clean number
         number = number.replace(/[^0-9]/g, '') + '@s.whatsapp.net';
 
-        // ✅ Add user
+        // ✅ ADD USER
         const res = await sock.groupParticipantsUpdate(chatId, [number], "add");
 
         const status = res?.[0]?.status;
