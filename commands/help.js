@@ -73,6 +73,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.rejectall 
 ║ ✦.add
 ║ ✦.antigroupmention 
+║ ✦.invite 
 ╚═══════════════════╝
 
 ╔═══════════════════╗
@@ -174,7 +175,7 @@ async function helpCommand(sock, chatId, message) {
    ║ ✦.npm
    ║ ✦.hearthis
    ║ ✦.chord
-   ║ ✦.defin
+   ║ ✦.define
 ╚═══════════════════╝
 
 ╔═══════════════════╗
