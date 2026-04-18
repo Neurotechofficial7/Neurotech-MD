@@ -5,9 +5,9 @@ module.exports = async (sock, chatId, message, args, command) => {
         const url = args[0];
 
         if (!url) {
-            return sock.sendMessage(chatId, {
-                text: `❗ Usage:\n.tinyurl <link>\n.cleanuri <link>\n.vgd <link>\n.rebrandly <link>\n.vurl <link>\n.adfoc <link>\n.ssur <link>`
-            }, { quoted: message });
+    return sock.sendMessage(chatId, {
+        text: `❗ Please provide a link.\n\nExample: .${command} https://google.com`
+    }, { quoted: message });
         }
 
         let apiURL = '';
