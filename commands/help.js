@@ -148,6 +148,28 @@ async function helpCommand(sock, chatId, message) {
 ╚═══════════════════╝
 
 ╔═══════════════════╗
+   *𝗣𝗛𝗢𝗧𝗢𝗙𝗨𝗡𝗜𝗔 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
+║ ✦ .skydiver
+║ ✦ .billboards-at-night
+║ ✦ .underground-poster
+║ ✦ .broadway-at-night
+║ ✦ .country-house
+║ ✦ .calendar
+║ ✦ .smoke-flare
+║ ✦ .mirror
+║ ✦ .analogue-tv
+║ ✦ .old-camera
+║ ✦ .love-letter
+║ ✦ .black-white-gallery
+║ ✦ .drawing-photo
+║ ✦ .photo_gallery
+║ ✦ .streets_of_new_york
+║ ✦ .reading_on_the_balcony
+║ ✦ .crown
+║ ✦ .frame_and_roses
+╚═══════════════════╝
+
+╔═══════════════════╗
    *𝗚𝗔𝗠𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦*:
 ║ ✦.tictactoe 
 ║ ✦.hangman
