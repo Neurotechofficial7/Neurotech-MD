@@ -9,19 +9,32 @@ module.exports = async (sock, chatId, message, args) => {
         const res = await axios.get(url);
         const data = res.data;
 
-        if (!data || !data.matches || data.matches.length === 0) {
+        // 🔥 SAFE EXTRACTION (fixes your error)
+        const matches =
+            data?.result ||
+            data?.matches ||
+            data?.data ||
+            data?.events ||
+            [];
+
+        if (!matches || matches.length === 0) {
             return await sock.sendMessage(chatId, {
-                text: "📭 No live matches found right now."
+                text: `📭 No live ${category} matches found right now.`
             }, { quoted: message });
         }
 
         let text = `🔥 *LIVE MATCHES (${category.toUpperCase()})*\n\n`;
 
-        data.matches.forEach((m, i) => {
-            text += `⚽ ${i + 1}. ${m.home} vs ${m.away}\n`;
-            text += `🏆 League: ${m.league || "N/A"}\n`;
-            text += `⏱ Score: ${m.score || "0-0"}\n`;
-            text += `📡 Status: ${m.status || "Live"}\n\n`;
+        matches.slice(0, 10).forEach((m, i) => {
+            const home = m.home || m.team1 || m.team_home || "Team A";
+            const away = m.away || m.team2 || m.team_away || "Team B";
+            const league = m.league || m.competition || "N/A";
+            const score = m.score || m.result || "Live";
+            const status = m.status || "LIVE";
+
+            text += `⚽ ${i + 1}. ${home} vs ${away}\n`;
+            text += `🏆 League: ${league}\n`;
+            text += `⏱ Score: ${score} (${status})\n\n`;
         });
 
         await sock.sendMessage(chatId, {
@@ -29,9 +42,10 @@ module.exports = async (sock, chatId, message, args) => {
         }, { quoted: message });
 
     } catch (err) {
-        console.log(err);
+        console.log("LIVE MATCH ERROR:", err?.response?.data || err.message);
+
         await sock.sendMessage(chatId, {
-            text: "❌ Failed to fetch live matches."
+            text: "❌ Failed to fetch live matches. API error or network issue."
         }, { quoted: message });
     }
 };
