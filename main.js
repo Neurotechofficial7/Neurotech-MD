@@ -858,7 +858,7 @@ case userMessage === '.spooky':
     await magicStudioCommand(sock, chatId, message);
     break;
                 case userMessage === '.approveall':
-    await approveAllCommand(sock, chatId, message);
+    await approveAllCommand(sock, chatId, senderId, message);
     break;
             case userMessage.startsWith('.warnings'):
                 const mentionedJidListWarnings = message.message.extendedTextMessage?.contextInfo?.mentionedJid || [];
