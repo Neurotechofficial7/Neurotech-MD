@@ -25,27 +25,34 @@ module.exports = async (sock, chatId, message) => {
         }
 
         let target = mentions[0] || quoted || senderId;
-
         target = toJid(target);
+
+        console.log("🔍 Blocking:", target);
 
         if (!target) {
             return await sock.sendMessage(chatId, {
-                text: '❌ No user found to block.'
+                text: '❌ No valid user found.'
             }, { quoted: message });
         }
 
-        await sock.updateBlockStatus(target, 'block');
+        // 🔥 NEW METHOD (IMPORTANT FIX)
+        await sock.chatModify(
+            {
+                block: 'block'
+            },
+            target
+        );
 
         await sock.sendMessage(chatId, {
-            text: `🚫 Successfully blocked:\n@${target.split('@')[0]}`,
+            text: `🚫 Blocked successfully:\n@${target.split('@')[0]}`,
             mentions: [target]
         }, { quoted: message });
 
     } catch (err) {
-        console.log('BLOCK ERROR:', err);
+        console.log("❌ BLOCK ERROR FULL:", err);
 
         await sock.sendMessage(chatId, {
-            text: '❌ Failed to block user (check console for error).'
+            text: '❌ Block failed. Check console for exact error.'
         });
     }
 };
