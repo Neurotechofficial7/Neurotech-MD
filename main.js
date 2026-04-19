@@ -559,25 +559,6 @@ case userMessage.startsWith('.mediafire'):
 case userMessage.startsWith('.gdrivedl'):
     await gdrivedl(sock, chatId, message, userMessage.split(' ').slice(1));
     break;
-                case 'metallic':
-case 'ice':
-case 'snow':
-case 'impressive':
-case 'matrix':
-case 'light':
-case 'neon':
-case 'devil':
-case 'purple':
-case 'thunder':
-case 'leaves':
-case '1917':
-case 'arena':
-case 'hacker':
-case 'sand':
-case 'blackpink':
-case 'glitch':
-case 'fire':
-    return textmakerCommand(sock, chatId, message, args, command);
                 case userMessage.startsWith('.skydiver'):
 case userMessage.startsWith('.billboards-at-night'):
 case userMessage.startsWith('.underground-poster'):
