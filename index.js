@@ -158,7 +158,7 @@ async function startXeonBotInc() {
                         text: '❌ An error occurred while processing your message.',
                         contextInfo: {
                             forwardingScore: 1,
-                            isForwarded: true,
+                            isForwarded: false,
                             forwardedNewsletterMessageInfo: {
                                 newsletterJid: '120363421451364996@newsletter',
                                 newsletterName: 'Neurotech Official',
