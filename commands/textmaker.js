@@ -4,7 +4,7 @@ const mumaker = require('mumaker');
 // Base channel info template
 const channelInfo = {
     forwardingScore: 1,
-    isForwarded: false,
+    isForwarded: true,
     forwardedNewsletterMessageInfo: {
         newsletterJid: '120363421451364996@newsletter',
         newsletterName: 'Neurotech Official',
@@ -14,8 +14,8 @@ const channelInfo = {
 
 // Reusable message templates
 const messageTemplates = {
-    error: (message) => ({
-        text: message,
+    error: (message, type) => ({
+        text: message.replace('.metallic', `.${type}`),
         contextInfo: channelInfo
     }),
     success: (text, imageUrl) => ({
@@ -28,14 +28,14 @@ const messageTemplates = {
 async function textmakerCommand(sock, chatId, message, q, type) {
     try {
         if (!q) {
-            return await sock.sendMessage(chatId, messageTemplates.error("Please provide text to generate\nExample: .metallic Nick"));
+            return await sock.sendMessage(chatId, messageTemplates.error("Please provide text to generate\nExample: .metallic Nick", type));
         }
 
         // Extract text
         const text = q.split(' ').slice(1).join(' ');
 
         if (!text) {
-            return await sock.sendMessage(chatId, messageTemplates.error("Please provide text to generate\nExample: .metallic Nick"));
+            return await sock.sendMessage(chatId, messageTemplates.error("Please provide text to generate\nExample: .metallic Nick", type));
         }
 
         try {
@@ -96,7 +96,7 @@ async function textmakerCommand(sock, chatId, message, q, type) {
                     result = await mumaker.ephoto("https://en.ephoto360.com/flame-lettering-effect-372.html", text);
                     break;
                 default:
-                    return await sock.sendMessage(chatId, messageTemplates.error("Invalid text generator type"));
+                    return await sock.sendMessage(chatId, messageTemplates.error("Invalid text generator type", type));
             }
 
             if (!result || !result.image) {
@@ -106,12 +106,12 @@ async function textmakerCommand(sock, chatId, message, q, type) {
             await sock.sendMessage(chatId, messageTemplates.success(text, result.image));
         } catch (error) {
             console.error('Error in text generator:', error);
-            await sock.sendMessage(chatId, messageTemplates.error(`Error: ${error.message}`));
+            await sock.sendMessage(chatId, messageTemplates.error(`Error: ${error.message}`, type));
         }
     } catch (error) {
         console.error('Error in textmaker command:', error);
-        await sock.sendMessage(chatId, messageTemplates.error("An error occurred. Please try again later."));
+        await sock.sendMessage(chatId, messageTemplates.error("An error occurred. Please try again later.", type));
     }
 }
 
-module.exports = textmakerCommand; 
+module.exports = textmakerCommand;
