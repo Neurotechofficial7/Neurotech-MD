@@ -5,7 +5,7 @@ const path = require('path');
 async function helpCommand(sock, chatId, message) {
     const helpMessage = `
 ╔═══════════════════╗
-      ${settings.botName || 'Neurotech Official'}  
+      ${settings.botName || 'Neurotech MD'}  
    ◆Version: *${settings.version || '3.0.0'}*
    ◆Creator: ${settings.botOwner || 'Neurotech Official'}
    ◆Youtube: Neurotech Official 
