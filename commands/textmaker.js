@@ -4,7 +4,7 @@ const mumaker = require('mumaker');
 // Base channel info template
 const channelInfo = {
     forwardingScore: 1,
-    isForwarded: true,
+    isForwarded: false,
     forwardedNewsletterMessageInfo: {
         newsletterJid: '120363421451364996@newsletter',
         newsletterName: 'Neurotech Official',
