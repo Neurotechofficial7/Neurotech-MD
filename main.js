@@ -51,6 +51,7 @@ const soundcloudCommand = require('./commands/soundcloud');
 const playstoreCommand = require('./commands/playstore');
 const happymodCommand = require('./commands/happymod');
 const apkmirrorCommand = require('./commands/apkmirror');
+const textmakerCommand = require('./commands/textmaker');
 const wallpaperCommand = require('./commands/wallpaper');
 const proxy = require('./commands/proxy');
 const web2zip = require('./commands/web2zip');
@@ -559,6 +560,25 @@ case userMessage.startsWith('.mediafire'):
 case userMessage.startsWith('.gdrivedl'):
     await gdrivedl(sock, chatId, message, userMessage.split(' ').slice(1));
     break;
+                case 'metallic':
+case 'ice':
+case 'snow':
+case 'impressive':
+case 'matrix':
+case 'light':
+case 'neon':
+case 'devil':
+case 'purple':
+case 'thunder':
+case 'leaves':
+case '1917':
+case 'arena':
+case 'hacker':
+case 'sand':
+case 'blackpink':
+case 'glitch':
+case 'fire':
+    return textmakerCommand(sock, chatId, message, args, command);
                 case userMessage.startsWith('.skydiver'):
 case userMessage.startsWith('.billboards-at-night'):
 case userMessage.startsWith('.underground-poster'):
