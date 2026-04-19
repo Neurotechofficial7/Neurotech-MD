@@ -1,9 +1,9 @@
 const axios = require("axios");
 require("dotenv").config();
 
-const TOKEN = process.env.GITHUB_TOKEN;
-const OWNER = process.env.GITHUB_USERNAME;
-const REPO = process.env.GITHUB_REPO;
+const TOKEN = process.env.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;
+const OWNER = process.env.Neurotechofficial7;
+const REPO = process.env.Neurotech-MD-backend;
 
 async function loadCommand(name) {
     try {
