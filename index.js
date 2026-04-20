@@ -248,6 +248,14 @@ async function startXeonBotInc() {
     // Connection handling
     XeonBotInc.ev.on('connection.update', async (s) => {
         const { connection, lastDisconnect, qr } = s
+
+        if (connection === 'open') {
+    global.botStatus = "Online";
+} else if (connection === 'close') {
+    global.botStatus = "Offline";
+} else if (connection === 'connecting') {
+    global.botStatus = "Connecting...";
+        }
         
         if (qr) {
             console.log(chalk.yellow('📱 QR Code generated. Please scan with WhatsApp.'))
