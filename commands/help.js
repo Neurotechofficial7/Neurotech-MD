@@ -9,6 +9,8 @@ async function helpCommand(sock, chatId, message) {
    ◆Version: *${settings.version || '3.0.0'}*
    ◆Creator: ${settings.botOwner || 'Neurotech Official'}
    ◆Youtube: Neurotech Official 
+   ◆Status : ${global.botStatus || "Unknown"}
+   ◆Mode   : ${global.botMode || "Public"}
    ◆Commands: 320
    ◆Maintained: Yes
    ◆Status: Online 
