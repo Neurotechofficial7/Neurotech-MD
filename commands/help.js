@@ -12,9 +12,7 @@ async function helpCommand(sock, chatId, message) {
    ◆Status : ${global.botStatus || "Unknown"}
    ◆Mode   : ${global.botMode || "Public"}
    ◆Commands: 320
-   ◆Maintained: Yes
-   ◆Status: Online 
-   ◆Mode: Public 
+   ◆Maintained: Yes 
 ╚═══════════════════╝
 
 *𝗔𝗩𝗔𝗜𝗟𝗔𝗕𝗟𝗘 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦:*
