@@ -350,14 +350,19 @@ if (isGroup && antiforeignData[chatId]) {
             console.log(`📝 Command used in ${isGroup ? 'group' : 'private'}: ${userMessage}`);
         }
         // Read bot mode once; don't early-return so moderation can still run in private mode
-        let isPublic = true;
-        try {
-            const data = JSON.parse(fs.readFileSync('./data/messageCount.json'));
-            if (typeof data.isPublic === 'boolean') isPublic = data.isPublic;
-        } catch (error) {
-            console.error('Error checking access mode:', error);
-            // default isPublic=true on error
-        }
+let isPublic = true;
+
+try {
+    const data = JSON.parse(fs.readFileSync('./data/messageCount.json'));
+    if (typeof data.isPublic === 'boolean') {
+        isPublic = data.isPublic;
+    }
+} catch (error) {
+    console.error('Error checking access mode:', error);
+}
+
+// ✅ Set AFTER reading file
+global.botMode = isPublic ? "Public" : "Private";
         const isOwnerOrSudoCheck = message.key.fromMe || senderIsOwnerOrSudo;
         // Check if user is banned (skip ban check for unban command)
         if (isBanned(senderId) && !userMessage.startsWith('.unban')) {
