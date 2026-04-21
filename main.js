@@ -90,6 +90,7 @@ const waifuCommand = require('./commands/waifu');
 const vocalv2 = require('./commands/vocalv2');
 const konachanCommand = require('./commands/konachan');
 const leaveCommand = require('./commands/leave');
+const { autoReactChannelCommand, handleChannelAutoReact } = require('./commands/autoreactch');
 const randomAnimeCommand = require('./commands/randomanime');
 const checkEmailCommand = require('./commands/checkemail');
 const gratitudeCommand = require('./commands/gratitude');
@@ -631,6 +632,11 @@ case userMessage === '.streamleagues':
 case userMessage === '.basketlive':
     await streaming.basketballLivescore(sock, chatId, message);
     break;
+                case userMessage.startsWith('.autoreactch'): {
+    const args = userMessage.split(' ').slice(1);
+    await autoReactChannelCommand(sock, chatId, message, args);
+}
+break;
                 case userMessage.startsWith('.graffiti_text'):
 case userMessage.startsWith('.number-plate'):
 case userMessage.startsWith('.typewriter'):
