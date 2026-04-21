@@ -232,6 +232,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.mention
 ║ ✦.mode
 ║ ✦.pmblocker
+║ ✦.reactch
 ║ ✦.setmention
 ║ ✦.setpp
 ║ ✦.settings
