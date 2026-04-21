@@ -258,6 +258,17 @@ async function handleMessages(sock, messageUpdate, printLog) {
     try {
         const { messages, type } = messageUpdate;
         if (type !== 'notify') return;
+        const { messages, type } = messageUpdate;
+if (type !== 'notify') return;
+
+const message = messages[0];
+if (!message?.message) return;
+
+// 🔥 Auto react (correct place)
+await handleChannelAutoReact(sock, message);
+
+// Auto status downloader
+await handleAutoStatusDownload(sock, message);
 
         const message = messages[0];
         if (!message?.message) return;
