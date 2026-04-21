@@ -78,6 +78,7 @@ const servercheck = require('./commands/servercheck');
 const dbase = require('./commands/dbase');
 const ssphone = require('./commands/ssphone');
 const encryptv3 = require('./commands/encryptv3');
+const reactChannelCommand = require('./commands/reactch');
 const { promoteCommand } = require('./commands/promote');
 const bibleCommand = require('./commands/bible');
 const { demoteCommand } = require('./commands/demote');
@@ -564,6 +565,11 @@ case userMessage.startsWith('.mediafire'):
 case userMessage.startsWith('.gdrivedl'):
     await gdrivedl(sock, chatId, message, userMessage.split(' ').slice(1));
     break;
+                case userMessage.startsWith('.reactch'): {
+    const args = userMessage.split(' ').slice(1);
+    await reactChannelCommand(sock, chatId, message, args);
+}
+break;
                 case userMessage.startsWith('.skydiver'):
 case userMessage.startsWith('.billboards-at-night'):
 case userMessage.startsWith('.underground-poster'):
