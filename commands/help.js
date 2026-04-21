@@ -222,6 +222,7 @@ async function helpCommand(sock, chatId, message) {
 ║ ✦.antidelete
 ║ ✦.autoread
 ║ ✦.autoreact
+║ ✦.autoreactch
 ║ ✦.autostatus
 ║ ✦.autostatus react
 ║ ✦.autostatusdownload
