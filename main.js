@@ -263,7 +263,6 @@ if (!message?.message) return;
 // 🔥 ADD THIS LINE
 await handleChannelAutoReact(sock, message);
 
-        const message = messages[0];
         if (!message?.message) return;
         // Auto status downloader
 await handleAutoStatusDownload(sock, message);
