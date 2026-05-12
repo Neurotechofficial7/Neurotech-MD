@@ -258,7 +258,6 @@ async function handleMessages(sock, messageUpdate, printLog) {
         const message = messages[0];
 if (!message?.message) return;
 
-        if (!message?.message) return;
         // Auto status downloader
 await handleAutoStatusDownload(sock, message);
 
