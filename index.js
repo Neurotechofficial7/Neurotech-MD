@@ -340,7 +340,7 @@ async function startXeonBotInc() {
                     if (!antiCallNotified.has(callerJid)) {
                         antiCallNotified.add(callerJid);
                         setTimeout(() => antiCallNotified.delete(callerJid), 60000);
-                        await XeonBotInc.sendMessage(callerJid, { text: '📵 Anticall is enabled. Your call was rejected and you will be blocked if you contiue calling.' });
+                        await XeonBotInc.sendMessage(callerJid, { text: '📵 Anticall is enabled. Your call was rejected and you will be blocked if you continue calling.' });
                     }
                 } catch {}
                 // Then: block after a short delay to ensure rejection and message are processed
