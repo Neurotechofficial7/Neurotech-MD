@@ -9,6 +9,7 @@ process.env.TMP = customTemp;
 
 // Auto-cleaner every 3 hours
 setInterval(() => {
+    if (!fs.existsSync(customTemp)) fs.mkdirSync(customTemp, { recursive: true }); // ADD THIS LINE
     fs.readdir(customTemp, (err, files) => {
         if (err) return;
         for (const file of files) {
