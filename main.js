@@ -258,9 +258,6 @@ async function handleMessages(sock, messageUpdate, printLog) {
         const message = messages[0];
 if (!message?.message) return;
 
-// 🔥 ADD THIS LINE
-await handleChannelAutoReact(sock, message);
-
         if (!message?.message) return;
         // Auto status downloader
 await handleAutoStatusDownload(sock, message);
