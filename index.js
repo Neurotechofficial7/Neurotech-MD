@@ -320,7 +320,12 @@ async function startXeonBotInc() {
     // Anticall handler: block callers when enabled
     XeonBotInc.ev.on('call', async (calls) => {
         try {
-            const { readState: readAnticallState } = require('./commands/anticall');
+            let readAnticallState;
+try {
+    ({ readState: readAnticallState } = require('./commands/anticall'));
+} catch {
+    readAnticallState = () => ({ enabled: false }); // Default to disabled if file missing
+}    
             const state = readAnticallState();
             if (!state.enabled) return;
             for (const call of calls) {
